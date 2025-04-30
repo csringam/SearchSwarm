@@ -32,3 +32,6 @@ It should be noted that the prority of the sweep is to complete a sweep as quick
 
 ### Object Detection Model
 Models like BiSeNet v2 or ResNet18 are viable options. Will only need to actualy train on a few classes it can be more lightweight, and only instance detection or object recognition is needed as opposed to full semantic segmentation.
+
+### Travel Path
+Depending on the camera and it's frame rate, the path will be adjusted to ensure proper coverage while traveling at the highest possible velocity, with minimal acceleration change.
