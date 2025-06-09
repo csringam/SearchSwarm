@@ -11,6 +11,8 @@ https://jenjenchung.github.io/anthropomorphic/Papers/Baehnemann2019revisiting.pd
 
 Additional Paper: 2308.11478-coverage
 
+https://brilliant.org/wiki/graph-theory/
+
 # Considerations for each paper
 - What is considered an efficient area decomp algo? Is it speed of the solver itself? Is it the actual shapes that are decomposed?
 - Make sure that the number of subdivisions is controllable
