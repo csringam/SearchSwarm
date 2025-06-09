@@ -4,9 +4,10 @@
 
 1. Will be able to segment a large area into smaller sections based on number of agents.
 2. Each segmented area will have an optimal sweep calculated. This should be the least amount of time to travel, accounting for acceleration and deacceleration, as well as any altitude changes
-3. Each agent will have object avoidance capability.
-4. Each agent will be equipped with a lightweight object detection model to identify articles of interest.
-5. An agent's travel path and acceleration will allow for clear images.
+3. Will be able to visualize decomposed area and travel paths with a standalone application
+4. Each agent will have object avoidance capability.
+5. Each agent will be equipped with a lightweight object detection model to identify articles of interest.
+6. An agent's travel path and acceleration will allow for clear images.
 
 ## Functional Design
 ### Segmenting Large Area
@@ -26,6 +27,9 @@ Each segmented area should have an optimal sweep calculated, again done on the "
 ![image](https://github.com/user-attachments/assets/3c5382ea-f7a0-4e10-b2f6-52f0387fd5c7)
 
 It should be noted that the prority of the sweep is to complete a sweep as quickly as possible, without emphasis on the return deistnace. A cost function can be assumed to be the distance to travel from the starting point, then the total distance of the sweep. Addtionnally, this should mean that sharp angles may not be the best course, due to acceleration/decceleration time, so look into other types of distances, ex. Dubins
+
+### Visualization
+Look into possible APIs or other C++ tools that can be leveraged to create quick graphs.
 
 ### Object Avoidance
 360 degree LiDAR sensor at the minimum to look for any obstacles ahead of the agent, potential for a 3D LiDAR scanner to get a better perspective on overall height. Realistically, any objects the LiDAR sees in front of the agent will be maneuvared around laterally, which can reduce the need for 3D imaging and the added computation.
