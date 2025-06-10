@@ -9,7 +9,9 @@ https://biorobotics.ri.cmu.edu/papers/paperUploads/A028807.pdf
 
 https://jenjenchung.github.io/anthropomorphic/Papers/Baehnemann2019revisiting.pdf
 
-Additional Paper: 2308.11478-coverage
+Additional Paper: 
+- 2308.11478-coverage
+- jaist_coverage_paper
 
 https://brilliant.org/wiki/graph-theory/
 
