@@ -32,7 +32,8 @@ Intro
 - Complete graph: exists an edge connecting every two pairs of nodes
   - Number of edges correspond to this:
   - ![image](https://github.com/user-attachments/assets/f44ab456-735b-4632-b664-fcd4b97680d5)
-- Can be directed or undirected
+    
+- Edges can be directed or undirected
 Eulerian Graphs
 - All edges are visited exactly once in a sincle path
 	- aka [Eulerian path](https://brilliant.org/wiki/eulerian-path/)
@@ -43,6 +44,7 @@ Planar Graphs
 	- can define "face" of graph as any region bounded by edges, and containing no edges on interior
 - Following must hold true, considering V as vertices, F as faces, and E as edges:
   - ![image](https://github.com/user-attachments/assets/224759b6-fa5a-478d-8ee2-85aa0b259b54)
+    
 [Graph Coloring](https://brilliant.org/wiki/graph-coloring-and-chromatic-numbers/)
 - How can a graph's nodes be colored such that no adjacent vertices contain the same color
 - Complete graphs have colors = num nodes
