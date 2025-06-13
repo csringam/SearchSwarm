@@ -20,7 +20,7 @@ https://brilliant.org/wiki/graph-theory/
 - Make sure that the number of subdivisions is controllable
 - How easy is each one to implement? What are the required dependencies?
 
-# Notes
+# Notes on Graph Theorey
 Intro
 - Vertices or nodes connected by edges
 - Non-trivial graph has one or more nodes connected by edges
@@ -51,3 +51,51 @@ Planar Graphs
 - Chromatic number (k): minimum number of colors (k - colorable)
 - Can be seen when coloring a map, reduces to a graph coloring problem
 	- [Four color theorem](https://brilliant.org/wiki/four-color-theorem/) - no graph corresponding to a map has a chromatic number greater than 4
+
+# Notes on Area Decomp
+
+- Proposed Methodology
+	- Exact Cellular Decomposition:
+ 		- Environment is divided into **non-overlapping cells**.
+  		- Coverage within each cell is simple (e.g., back-and-forth motions).
+  		- The global coverage problem reduces to planning transitions between cells.
+	- Boustrophedon Decomposition:
+		- New decomposition technique introduced in this paper.
+	 	- Name means "the way of the ox" — inspired by how an ox plows a field (straight line, turn, repeat).
+	  	- Decomposes free space so each cell can be covered using boustrophedon (back-and-forth) motions.
+	  	- Validated with simulations and tested on a **Nomadic 200 mobile robot**.
+- Background and Prior Work
+ 	- Manual Programming Approaches:
+ 		- Early work like \[Colegrave and Branch, 1994] required explicit programming of paths.
+   		- Relied on environmental landmarks.
+	- Demeter Project \[Ollis and Stentz, 1996]:
+		 - Used vision to follow previous crop cuts.
+		 - Limited to rectangular fields.
+   	- Non-holonomic Robot Constraints**:
+   		- \[Hofner and Schmidt, 1995]: Used templates to handle motion constraints, but only in bounded, obstacle-free regions.
+	- Resolution-Complete Algorithms**:
+ 		- \[Zelinsky et al., 1993]: Worked in discretized environments; suitable for unstructured terrain.
+   	- Multi-Robot and Incremental Approaches:
+		- \[Kurabayashi et al., 1996]: Similar method using cooperating robots, but no proof.
+		- \[Hert et al., 1996]: Similar in the planar case but:
+			- Less complete than the proposed method.
+			- More complex (many special cases).
+			- Their main strength: **incremental design** useful for sensor-based robot implementation.
+- Exact Cellular Decomposition
+	- Cellular Decomp: free configuration space decomposed into cells so union of cells is original free space
+		- free configuration space: et of all robot configurations where the robot does not overlap an obstacle
+	- Each cell is node in graph, adjacent cells have edge connecting nodes (adjacency graph)
+		- walk though boils down to TSP (traveling salesman problem)
+	- Trapezoidal Decomposition: robot free space path decomposed into trapezoidal cells
+		- each cell can be covered in back and forth motions
+		- coverage achieved through TSP of adjacency graph
+		- vertical line (slice) sweeps left - right through bounded environment populated w/ polygonal obstacles
+		- cells formed through "open" and "close" operations when slice encounters an event
+			- event: instance which slice intersects vertex of polygon
+			- 3 types: IN (current cell closed and 2 opened), OUT (2 cells closed and 1 open), MIDDLE (1 close 1 open)
+   			- ![image](https://github.com/user-attachments/assets/e95fdb25-3513-49e3-bdec-6231e5696a13)
+
+		- Too much redundant back and forth motion
+		- Requires environment to be polygonal
+			- ![image](https://github.com/user-attachments/assets/0728859c-6222-4828-b07f-7edb2714ff91)
+
