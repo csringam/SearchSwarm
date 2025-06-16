@@ -98,4 +98,4 @@ Planar Graphs
 		- Too much redundant back and forth motion
 		- Requires environment to be polygonal
 			- ![image](https://github.com/user-attachments/assets/0728859c-6222-4828-b07f-7edb2714ff91)
-
+2.2
