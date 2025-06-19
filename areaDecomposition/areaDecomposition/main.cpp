@@ -20,5 +20,9 @@ int main() {
 
 	map1.printMap();
 
+	std::cout << std::endl;
+	map1.setHeight(5);
+	map1.printMap();
+
 	return 0;
 }

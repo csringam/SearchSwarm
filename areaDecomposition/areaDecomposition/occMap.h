@@ -12,20 +12,22 @@ class occMap
 	size_t m_height{ 0 };
 
 public:
+	// Constructors and Destructor
 	occMap() = default;
-
 	occMap(size_t width, size_t height);
-
-	occMap(vector<vector<int>> map);
-
+	occMap(const vector<vector<int>>& map);
 	~occMap() = default;
 
+	// Getters and Setters
 	size_t getWidth();
-
 	size_t getHeight();
-
 	vector<vector<int>> getMap();
 
+	void setWidth(size_t width);
+	void setHeight(size_t height);
+	void setMap(const vector<vector<int>>& map);
+
+	// Utility Functions
 	void printMap();
 };
 
