@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include <memory>
+#include <iostream>
 
 using namespace std;
 
@@ -24,5 +25,7 @@ public:
 	size_t getHeight();
 
 	vector<vector<int>> getMap();
+
+	void printMap();
 };
 

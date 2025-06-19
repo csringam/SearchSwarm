@@ -26,3 +26,12 @@ size_t occMap::getHeight() {
 vector<vector<int>> occMap::getMap() {
 	return m_map;
 }
+
+void occMap::printMap() {
+	for (const auto& i : m_map) {
+		for (const auto& j : i) {
+			std::cout << j << " ";
+		}
+		std::cout << std::endl;
+	}
+}

@@ -18,12 +18,7 @@ int main() {
 
 	std::cout << "Occupancy map:" << std::endl;
 
-	for (int i = 0; i < map1.getHeight(); i++) {
-		for (int j = 0; j < map1.getWidth(); j++) {
-			std::cout << map1.getMap()[i][j] << " ";
-		}
-		std::cout << std::endl;
-	}
+	map1.printMap();
 
 	return 0;
 }
