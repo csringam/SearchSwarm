@@ -2,6 +2,7 @@
 #include <memory>
 #include <vector>
 #include "occMap.h"
+#include "diffusionDecomp.h"
 
 int main() {
 	std::vector<std::vector<int>> mapData = {
@@ -22,6 +23,27 @@ int main() {
 
 	std::cout << std::endl;
 	map1.setHeight(5);
+	map1.printMap();
+
+	occMap sec = map1.getSection(1, 2, 1, 2);
+	std::cout << std::endl;
+	sec.printMap();
+
+	sec.insertRow( 0, {1, 1} );
+	sec.insertColumn(0, { 1, 0, 1 });
+
+	sec.insertRow(1, { 0, 1, 0 });
+
+	std::cout << std::endl;
+	sec.printMap();
+
+	occMap* mapPtr = &map1;
+
+	diffusionDecomp decomp(mapPtr);
+
+	decomp.insertBoundary(1, HORIZONTAL);
+
+	cout << endl;
 	map1.printMap();
 
 	return 0;

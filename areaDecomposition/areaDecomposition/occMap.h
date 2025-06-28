@@ -29,5 +29,10 @@ public:
 
 	// Utility Functions
 	void printMap();
+
+	occMap getSection(int t_row, int b_row, int l_col, int r_col);
+	
+	void insertRow(int row, const vector<int>& newRow);
+	void insertColumn(int col, const vector<int>& newCol);
 };
 

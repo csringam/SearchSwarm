@@ -59,3 +59,52 @@ void occMap::printMap() {
 		std::cout << std::endl;
 	}
 }
+
+occMap occMap::getSection(int t_row, int b_row, int l_col, int r_col) {
+	if (b_row >= m_height || t_row < 0 || l_col < 0 || r_col >= m_width) {
+		cout << "Error: row or column index out of bounds." << endl;
+		return occMap();
+	}
+	vector<vector<int>> section;
+
+	for (int i = t_row; i <= b_row; i++) {
+		vector<int> curRow;
+		for (int j = l_col; j <= r_col; j++) {
+			curRow.push_back(m_map[i][j]);
+		}
+		section.push_back(curRow);
+	}
+
+	occMap sectionMap(section);
+	return sectionMap;
+}
+
+void occMap::insertRow(int row, const vector<int>& newRow) {
+	if (row < 0 || row >= m_height) {
+		cerr << "Error: Row index out of bounds." << endl;
+		return;
+	}
+	if (newRow.size() != m_width) {
+		cerr << "Error: New row size does not match map width." << endl;
+		return;
+	}
+	m_map.insert(m_map.begin() + row, newRow);
+	m_height++;
+	return;
+}
+
+void occMap::insertColumn(int col, const vector<int>& newCol) {
+	if (col < 0 || col >= m_width) {
+		cerr << "Error: Column index out of bounds." << endl;
+		return;
+	}
+	if (newCol.size() != m_height) {
+		cerr << "Error: New column size does not match map height." << endl;
+		return;
+	}
+	for (int i = 0; i < m_height; i++) {
+		m_map[i].insert(m_map[i].begin() + col, newCol[i]);
+	}
+	m_width++;
+	return;
+}
