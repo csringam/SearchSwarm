@@ -23,6 +23,7 @@ int main() {
 
 	std::cout << std::endl;
 	map1.setHeight(5);
+	map1.setIndex(4, 2, 1);
 	map1.printMap();
 
 	occMap sec = map1.getSection(1, 2, 1, 2);

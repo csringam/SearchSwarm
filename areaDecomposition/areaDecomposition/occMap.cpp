@@ -108,3 +108,12 @@ void occMap::insertColumn(int col, const vector<int>& newCol) {
 	m_width++;
 	return;
 }
+
+void occMap::setIndex(int row, int col, int val) {
+	if (row < 0 || row >= m_height || col < 0 || col >= m_width) {
+		cerr << "Error: Index out of bounds." << endl;
+		return;
+	}
+	m_map[row][col] = val;
+	return;
+}

@@ -34,5 +34,6 @@ public:
 	
 	void insertRow(int row, const vector<int>& newRow);
 	void insertColumn(int col, const vector<int>& newCol);
+	void setIndex(int row, int col, int val);
 };
 
