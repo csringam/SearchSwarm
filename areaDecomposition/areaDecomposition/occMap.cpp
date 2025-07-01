@@ -80,7 +80,7 @@ occMap occMap::getSection(int t_row, int b_row, int l_col, int r_col) {
 }
 
 void occMap::insertRow(int row, const vector<int>& newRow) {
-	if (row < 0 || row >= m_height) {
+	if (row < 0 || row > m_height) {
 		cerr << "Error: Row index out of bounds." << endl;
 		return;
 	}
@@ -94,7 +94,7 @@ void occMap::insertRow(int row, const vector<int>& newRow) {
 }
 
 void occMap::insertColumn(int col, const vector<int>& newCol) {
-	if (col < 0 || col >= m_width) {
+	if (col < 0 || col > m_width) {
 		cerr << "Error: Column index out of bounds." << endl;
 		return;
 	}

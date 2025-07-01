@@ -42,6 +42,7 @@ int main() {
 	diffusionDecomp decomp(mapPtr);
 
 	decomp.insertBoundary(1, HORIZONTAL);
+	decomp.padMap();
 
 	cout << endl;
 	map1.printMap();

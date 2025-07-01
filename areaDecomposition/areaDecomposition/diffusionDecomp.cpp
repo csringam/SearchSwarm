@@ -30,3 +30,11 @@ void diffusionDecomp::insertBoundary(int idx, direction dir) {
 	}
 	return;
 }
+
+void diffusionDecomp::padMap() {
+	m_map->insertRow(0, vector<int>(m_map->getWidth(), 2)); // Top padding
+	m_map->insertRow(m_map->getHeight(), vector<int>(m_map->getWidth(), 2)); //Bottom padding
+	m_map->insertColumn(0, vector<int>(m_map->getHeight(), 2)); // Left padding
+	m_map->insertColumn(m_map->getWidth(), vector<int>(m_map->getHeight(), 2)); // Right padding
+	return;
+}
