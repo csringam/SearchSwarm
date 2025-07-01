@@ -25,5 +25,7 @@ public:
 	//Utility Functions
 	void insertBoundary(int idx, direction dir);
 	void padMap();
+
+	vector<vector<int>> findTLBoundCorner();
 };
 

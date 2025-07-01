@@ -43,10 +43,17 @@ int main() {
 	diffusionDecomp decomp(mapPtr);
 
 	decomp.insertBoundary(1, HORIZONTAL);
+	decomp.insertBoundary(2, VERTICAL);
 	decomp.padMap();
 
 	cout << endl;
 	map1.printMap();
+
+	vector<vector<int>> corners = decomp.findTLBoundCorner();
+
+	for (auto& corner : corners) {
+		cout << corner[0] << ", " << corner[1] << endl;
+	}
 
 	return 0;
 }

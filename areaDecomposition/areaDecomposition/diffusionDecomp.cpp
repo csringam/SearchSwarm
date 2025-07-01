@@ -38,3 +38,18 @@ void diffusionDecomp::padMap() {
 	m_map->insertColumn(m_map->getWidth(), vector<int>(m_map->getHeight(), 2)); // Right padding
 	return;
 }
+
+vector<vector<int>> diffusionDecomp::findTLBoundCorner() {
+	vector<vector<int>> corners;
+	size_t width = m_map->getWidth();
+	size_t height = m_map->getHeight();
+
+	for (size_t i = 1; i < height; ++i) {
+		for (size_t j = 1; j < width; ++j) {
+			if ((*m_map).getMap()[i-1][j] == 2 && (*m_map).getMap()[i][j-1] == 2 && j < width-1 && (*m_map).getMap()[i][j + 1] != 2) {
+				corners.push_back({static_cast<int>(i), static_cast<int>(j)});
+			}
+		}
+	}
+	return corners;
+}
