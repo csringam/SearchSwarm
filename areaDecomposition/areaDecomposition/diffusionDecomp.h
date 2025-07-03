@@ -27,5 +27,7 @@ public:
 	void padMap();
 
 	vector<vector<int>> findTLBoundCorner();
+	vector<vector<int>> findHBoundaries();
+	vector<occMap> getAreas();
 };
 

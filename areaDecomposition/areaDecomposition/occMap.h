@@ -5,6 +5,13 @@
 
 using namespace std;
 
+enum occupancy {
+	EMPTY = 0,
+	OBSTACLE = 1,
+	BORDER = 2,
+	OUT_OF_BOUNDS = 3
+};
+
 class occMap
 {
 	vector<vector<int>> m_map; // 2D array to prepresent occupancy map, (0 or 1)
@@ -34,6 +41,6 @@ public:
 	
 	void insertRow(int row, const vector<int>& newRow);
 	void insertColumn(int col, const vector<int>& newCol);
-	void setIndex(int row, int col, int val);
+	void setIndex(int row, int col, occupancy val);
 };
 

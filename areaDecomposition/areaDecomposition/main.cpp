@@ -14,16 +14,9 @@ int main() {
 
 	occMap map1 = occMap(mapData);
 
-	std::cout << "Occupancy map width: " << map1.getWidth() << std::endl;
-	std::cout << "Occupancy map height: " << map1.getHeight() << std::endl;
-
-	std::cout << "Occupancy map:" << std::endl;
-
-	map1.printMap();
-
 	std::cout << std::endl;
 	map1.setHeight(5);
-	map1.setIndex(4, 2, 1);
+	map1.setIndex(4, 2, OBSTACLE);
 	map1.printMap();
 
 	occMap sec = map1.getSection(1, 2, 1, 2);
@@ -49,10 +42,13 @@ int main() {
 	cout << endl;
 	map1.printMap();
 
-	vector<vector<int>> corners = decomp.findTLBoundCorner();
+	vector<vector<int>> boundaries = decomp.findHBoundaries();
 
-	for (auto& corner : corners) {
-		cout << corner[0] << ", " << corner[1] << endl;
+	for (auto& boundary : boundaries) {
+		for (auto& idx : boundary) {
+			cout << idx << " ";
+		}
+		cout << endl;
 	}
 
 	return 0;

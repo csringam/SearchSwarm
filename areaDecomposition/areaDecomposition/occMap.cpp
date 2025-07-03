@@ -109,7 +109,7 @@ void occMap::insertColumn(int col, const vector<int>& newCol) {
 	return;
 }
 
-void occMap::setIndex(int row, int col, int val) {
+void occMap::setIndex(int row, int col, occupancy val) {
 	if (row < 0 || row >= m_height || col < 0 || col >= m_width) {
 		cerr << "Error: Index out of bounds." << endl;
 		return;
