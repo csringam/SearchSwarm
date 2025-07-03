@@ -28,6 +28,7 @@ public:
 
 	vector<vector<int>> findTLBoundCorner();
 	vector<vector<int>> findHBoundaries();
+	vector<vector<int>> findVBoundaries();
 	vector<occMap> getAreas();
 };
 

@@ -75,7 +75,6 @@ vector<vector<int>> diffusionDecomp::findHBoundaries() {
 						curBoundary.push_back(static_cast<int>(i));
 						curBoundary.push_back(static_cast<int>(j));
 						if (j < width - 1 && (*m_map).getMap()[i][j + 1] == 2) {
-							cout << "start nex" << endl;
 							curBoundary.push_back(static_cast<int>(i));
 							curBoundary.push_back(static_cast<int>(j));
 							boundaryPos = 1;
@@ -104,13 +103,80 @@ vector<vector<int>> diffusionDecomp::findHBoundaries() {
 						curBoundary.push_back(static_cast<int>(j));
 						if (j < width - 1 && (*m_map).getMap()[i][j + 1] == 2) {
 							curBoundary.push_back(static_cast<int>(i));
-							curBoundary.push_back(static_cast<int>(j + 1));
+							curBoundary.push_back(static_cast<int>(j));
 							boundaryPos = 1;
 						}
 					}
 				}
 				else if (j == width - 1) {
 					if ((*m_map).getMap()[i][j] == 2 && (*m_map).getMap()[i - 1][j] == 2 && boundaryPos == 1) {
+						boundaryPos = 0;
+						curBoundary.push_back(static_cast<int>(i));
+						curBoundary.push_back(static_cast<int>(j));
+						boundaries.push_back(curBoundary);
+					}
+				}
+			}
+		}
+	}
+	return boundaries;
+}
+
+vector<vector<int>> diffusionDecomp::findVBoundaries() {
+	vector<vector<int>> boundaries;
+	size_t width = m_map->getWidth();
+	size_t height = m_map->getHeight();
+	for (size_t j = 0; j < width; ++j) {
+		int boundaryPos = 0;
+		vector<int> curBoundary;
+		for (size_t i = 0; i < height; ++i) {
+			if (j < width - 1) {
+				if (i < height - 1) {
+					if ((*m_map).getMap()[i][j] == 2 && (*m_map).getMap()[i][j + 1] == 2 && (*m_map).getMap()[i + 1][j] == 2 && boundaryPos == 0) {
+						boundaryPos++;
+						curBoundary.push_back(static_cast<int>(i));
+						curBoundary.push_back(static_cast<int>(j));
+					}
+					else if ((*m_map).getMap()[i][j] == 2 && (*m_map).getMap()[i][j + 1] == 2 && boundaryPos == 1) {
+						boundaryPos = 0;
+						curBoundary.push_back(static_cast<int>(i));
+						curBoundary.push_back(static_cast<int>(j));
+						if (i < height - 1 && (*m_map).getMap()[i + 1][j] == 2) {
+							curBoundary.push_back(static_cast<int>(i));
+							curBoundary.push_back(static_cast<int>(j));
+							boundaryPos = 1;
+						}
+					}
+				}
+				else if (i == height - 1) {
+					if ((*m_map).getMap()[i][j] == 2 && (*m_map).getMap()[i][j + 1] == 2 && boundaryPos == 1) {
+						boundaryPos = 0;
+						curBoundary.push_back(static_cast<int>(i));
+						curBoundary.push_back(static_cast<int>(j));
+						boundaries.push_back(curBoundary);
+					}
+				}
+			}
+			else if (j == width - 1) {
+				if (i < height - 1) {
+					if ((*m_map).getMap()[i][j] == 2 && (*m_map).getMap()[i][j - 1] == 2 && (*m_map).getMap()[i + 1][j] == 2 && boundaryPos == 0) {
+						boundaryPos++;
+						curBoundary.push_back(static_cast<int>(i));
+						curBoundary.push_back(static_cast<int>(j));
+					}
+					else if ((*m_map).getMap()[i][j] == 2 && (*m_map).getMap()[i][j - 1] == 2 && boundaryPos == 1) {
+						boundaryPos = 0;
+						curBoundary.push_back(static_cast<int>(i));
+						curBoundary.push_back(static_cast<int>(j));
+						if (i < height - 1 && (*m_map).getMap()[i + 1][j] == 2) {
+							curBoundary.push_back(static_cast<int>(i));
+							curBoundary.push_back(static_cast<int>(j));
+							boundaryPos = 1;
+						}
+					}
+				}
+				else if (i == height - 1) {
+					if ((*m_map).getMap()[i][j] == 2 && (*m_map).getMap()[i][j - 1] == 2 && boundaryPos == 1) {
 						boundaryPos = 0;
 						curBoundary.push_back(static_cast<int>(i));
 						curBoundary.push_back(static_cast<int>(j));
