@@ -42,7 +42,7 @@ int main() {
 	cout << endl;
 	map1.printMap();
 
-	vector<vector<int>> boundaries = decomp.findVBoundaries();
+	vector<vector<int>> boundaries = decomp.findAllBoundaries();
 
 	cout << endl;
 	for (auto& boundary : boundaries) {

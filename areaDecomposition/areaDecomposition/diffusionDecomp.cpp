@@ -189,6 +189,15 @@ vector<vector<int>> diffusionDecomp::findVBoundaries() {
 	return boundaries;
 }
 
+vector<vector<int>> diffusionDecomp::findAllBoundaries() {
+	vector<vector<int>> boundaries;
+	vector<vector<int>> hBoundaries = findHBoundaries();
+	vector<vector<int>> vBoundaries = findVBoundaries();
+	boundaries.insert(boundaries.end(), hBoundaries.begin(), hBoundaries.end());
+	boundaries.insert(boundaries.end(), vBoundaries.begin(), vBoundaries.end());
+	return boundaries;
+}
+
 vector<occMap> diffusionDecomp::getAreas() {
 	vector<vector<int>> corners = findTLBoundCorner();
 	vector<vector<int>> mapInts = m_map->getMap();
