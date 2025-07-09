@@ -31,7 +31,8 @@ int main() {
 	std::cout << std::endl;
 	sec.printMap();
 
-	occMap* mapPtr = &map1;
+	//occMap* mapPtr = &map1;
+	shared_ptr<occMap> mapPtr = make_shared<occMap>(map1); // Using smart pointer for memory management
 
 	diffusionDecomp decomp(mapPtr);
 

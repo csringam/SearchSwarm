@@ -190,6 +190,14 @@ vector<vector<int>> diffusionDecomp::findVBoundaries() {
 }
 
 vector<vector<int>> diffusionDecomp::findAllBoundaries() {
+	// Combine horizontal and vertical boundaries as below:
+	// Horizontal			
+	// First row of boundaries:		(s1, s1) (e1, e1) (s2, s2) (e2, e2) (s3, s3) (e3, e3)
+	// Second row of boundaries:	(s4, s4) (e4, e4) (s5, s5) (e5, e5)
+	// Vertical
+	// First col of boundaries:		(s1, s1) (e1, e1) (s2, s2) (e2, e2) (s3, s3) (e3, e3)
+	// Second col of boundaries:	(s4, s4) (e4, e4) (s5, s5) (e5, e5)
+
 	vector<vector<int>> boundaries;
 	vector<vector<int>> hBoundaries = findHBoundaries();
 	vector<vector<int>> vBoundaries = findVBoundaries();
