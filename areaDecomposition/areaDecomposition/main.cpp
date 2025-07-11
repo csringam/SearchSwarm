@@ -43,12 +43,12 @@ int main() {
 	cout << endl;
 	map1.printMap();
 
-	vector<vector<int>> boundaries = decomp.findAllBoundaries();
+	vector<vector<pair<int, int>>> boundaries = decomp.findAllBoundaries();
 
 	cout << endl;
 	for (auto& boundary : boundaries) {
 		for (auto& idx : boundary) {
-			cout << idx << " ";
+			cout << "[" << idx.first << "," << idx.second << "] ";
 		}
 		cout << endl;
 	}

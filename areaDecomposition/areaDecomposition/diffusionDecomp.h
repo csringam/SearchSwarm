@@ -2,6 +2,7 @@
 #include <vector>
 #include <memory>
 #include <iostream>
+#include <utility>
 #include "occMap.h"
 
 using namespace std;
@@ -28,9 +29,11 @@ public:
 	void padMap();
 
 	vector<vector<int>> findTLBoundCorner();
-	vector<vector<int>> findHBoundaries();
-	vector<vector<int>> findVBoundaries();
-	vector<vector<int>> findAllBoundaries();
+	vector<vector<pair<int, int>>> findHBoundaries();
+	vector<vector<pair<int, int>>> findVBoundaries();
+	vector<vector<pair<int, int>>> findAllBoundaries();
 	vector<occMap> getAreas();
+
+	vector<int> findPerimeter(int sIdx[2]);
 };
 
