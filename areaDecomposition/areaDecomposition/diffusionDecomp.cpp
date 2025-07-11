@@ -247,6 +247,11 @@ vector<pair<int, int>> diffusionDecomp::findPerimeter(pair<int, int> sIdx) {
 		}
 	}
 
+	if (currentHBound == make_pair(-1, -1)) {
+		cerr << "Starting index not found in boundaries." << endl;
+		return perimeter;
+	}
+
 	bool looped = false;
 	int loopCounter = 0;
 	direction dir = HORIZONTAL;

@@ -60,5 +60,7 @@ int main() {
 		cout << "[" << idx.first << "," << idx.second << "] ";
 	}
 
+	perimeter = decomp.findPerimeter({ 1, 0 });
+
 	return 0;
 }
