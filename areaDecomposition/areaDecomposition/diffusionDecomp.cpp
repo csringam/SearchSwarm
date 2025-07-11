@@ -219,13 +219,13 @@ vector<occMap> diffusionDecomp::getAreas() {
 	return vecMap;
 }
 
-vector<int> diffusionDecomp::findPerimeter(int sIdx[2]) {
-	vector<int> perimeter;
+vector<pair<int, int>> diffusionDecomp::findPerimeter(pair<int, int> sIdx) {
+	vector<pair<int, int>> perimeter;
 	vector<vector<pair<int, int>>> hBoundaries = findHBoundaries();
 	vector<vector<pair<int, int>>> vBoundaries = findVBoundaries();
 
-	int row = sIdx[0];
-	int col = sIdx[1];
+	int row = sIdx.first;
+	int col = sIdx.second;
 	if (row < 0 || row >= m_map->getHeight() || col < 0 || col >= m_map->getWidth()) {
 		cerr << "Starting index out of bounds." << endl;
 		return perimeter;
@@ -234,10 +234,93 @@ vector<int> diffusionDecomp::findPerimeter(int sIdx[2]) {
 		cerr << "Starting index is not a boundary." << endl;
 		return perimeter;
 	}
-	perimeter.push_back(row);
-	perimeter.push_back(col);
+	perimeter.push_back(sIdx);
+	
+	pair<int, int> currentHBound{ -1, -1 }, currentVBound{ -1, -1 }, curBound{ -1, -1 };
 
-	int curRow, curCol = -1;
+	for(int i = 0; i < hBoundaries.size(); ++i) {
+		for (int j = 0; j < hBoundaries[i].size(); ++j) {
+			if (hBoundaries[i][j] == sIdx) {
+				currentHBound = { i, j };
+				break;
+			}
+		}
+	}
 
+	bool looped = false;
+	int loopCounter = 0;
+	direction dir = HORIZONTAL;
+
+	while (!looped) {
+		loopCounter++;
+		if(currentVBound == sIdx || currentHBound == sIdx) {
+			if (perimeter.size() > 1) {
+				looped = true;
+				break;
+			}
+		}
+		if(loopCounter > 100) {
+			cerr << "Loop counter exceeded 100 iterations. Exiting loop." << endl;
+			break;
+		}
+		if (dir == HORIZONTAL && currentHBound.first % 2 == 0) {
+			currentHBound.first++;
+			curBound = hBoundaries[currentHBound.first][currentHBound.second];
+			perimeter.push_back(curBound);
+			dir = VERTICAL;
+			for (int i = 0; i < vBoundaries.size(); ++i) {
+				for (int j = 0; j < vBoundaries[i].size(); ++j) {
+					if (vBoundaries[i][j] == curBound) {
+						currentVBound = { i, j };
+						break;
+					}
+				}
+			}
+		}
+		else if (dir == VERTICAL && currentVBound.first % 2 == 0) {
+			currentVBound.first++;
+			curBound = vBoundaries[currentVBound.first][currentVBound.second];
+			perimeter.push_back(curBound);
+			dir = HORIZONTAL;
+			for (int i = 0; i < hBoundaries.size(); ++i) {
+				for (int j = 0; j < hBoundaries[i].size(); ++j) {
+					if (hBoundaries[i][j] == curBound) {
+						currentHBound = { i, j };
+						break;
+					}
+				}
+			}
+		}
+		else if (dir == HORIZONTAL && currentHBound.first % 2 == 1) {
+			currentHBound.first--;
+			curBound = hBoundaries[currentHBound.first][currentHBound.second];
+			perimeter.push_back(curBound);
+			dir = VERTICAL;
+			for (int i = 0; i < vBoundaries.size(); ++i) {
+				for (int j = 0; j < vBoundaries[i].size(); ++j) {
+					if (vBoundaries[i][j] == curBound) {
+						currentVBound = { i, j };
+						break;
+					}
+				}
+			}
+		}
+		else if (dir == VERTICAL && currentVBound.first % 2 == 1) {
+			currentVBound.first--;
+			curBound = vBoundaries[currentVBound.first][currentVBound.second];
+			perimeter.push_back(curBound);
+			dir = HORIZONTAL;
+			for (int i = 0; i < hBoundaries.size(); ++i) {
+				for (int j = 0; j < hBoundaries[i].size(); ++j) {
+					if (hBoundaries[i][j] == curBound) {
+						currentHBound = { i, j };
+						break;
+					}
+				}
+			}
+		}
+	}
+
+	perimeter.pop_back();
 	return perimeter;
 }

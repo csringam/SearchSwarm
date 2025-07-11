@@ -52,6 +52,13 @@ int main() {
 		}
 		cout << endl;
 	}
+	pair<int, int> sIdx = { 0, 0 };
+	vector<pair<int, int>> perimeter = decomp.findPerimeter(sIdx);
+	cout << endl;
+
+	for (auto& idx : perimeter) {
+		cout << "[" << idx.first << "," << idx.second << "] ";
+	}
 
 	return 0;
 }
