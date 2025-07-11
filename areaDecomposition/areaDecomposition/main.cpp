@@ -31,7 +31,7 @@ int main() {
 	std::cout << std::endl;
 	sec.printMap();
 
-	//occMap* mapPtr = &map1;
+	occMap* mapPtr = &map1;
 	//unique_ptr<occMap> mapPtr (new occMap(map1); // Using smart pointer for memory management
 
 	diffusionDecomp decomp(map1);
