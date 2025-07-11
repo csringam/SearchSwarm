@@ -32,9 +32,9 @@ int main() {
 	sec.printMap();
 
 	//occMap* mapPtr = &map1;
-	shared_ptr<occMap> mapPtr = make_shared<occMap>(map1); // Using smart pointer for memory management
+	//unique_ptr<occMap> mapPtr (new occMap(map1); // Using smart pointer for memory management
 
-	diffusionDecomp decomp(mapPtr);
+	diffusionDecomp decomp(map1);
 
 	decomp.insertBoundary(1, HORIZONTAL);
 	decomp.insertBoundary(2, VERTICAL);

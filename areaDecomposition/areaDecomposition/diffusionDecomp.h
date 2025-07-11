@@ -10,14 +10,14 @@ enum direction {HORIZONTAL, VERTICAL};
 
 class diffusionDecomp
 {
-	shared_ptr<occMap> m_map; // Occupancy map for diffusion decomposition
+	occMap *m_map; // Occupancy map for diffusion decomposition
 	
 public:
 
 	//Constructors and Destructor
 	diffusionDecomp() = default;
-	diffusionDecomp(shared_ptr<occMap> map) : m_map(map) {}
-	~diffusionDecomp() = default;
+	diffusionDecomp(occMap &map) : m_map(&map) {}
+	~diffusionDecomp();
 	
 	// Getters and Setters
 	occMap getMap() const;

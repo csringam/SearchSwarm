@@ -93,6 +93,12 @@ void occMap::insertRow(int row, const vector<int>& newRow) {
 	return;
 }
 
+void occMap::removeRow(int row) {
+	m_map.erase(m_map.begin() + row);
+	m_height--;
+	return;
+}
+
 void occMap::insertColumn(int col, const vector<int>& newCol) {
 	if (col < 0 || col > m_width) {
 		cerr << "Error: Column index out of bounds." << endl;
@@ -106,6 +112,14 @@ void occMap::insertColumn(int col, const vector<int>& newCol) {
 		m_map[i].insert(m_map[i].begin() + col, newCol[i]);
 	}
 	m_width++;
+	return;
+}
+
+void occMap::removeColumn(int col) {
+	for (int i = 0; i < m_height; i++) {
+		m_map[i].erase(m_map[i].begin() + col);
+	}
+	m_width--;
 	return;
 }
 

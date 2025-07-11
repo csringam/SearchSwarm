@@ -1,5 +1,11 @@
 #include "diffusionDecomp.h"
 
+diffusionDecomp::~diffusionDecomp() {
+	if (m_map) {
+		m_map = nullptr;
+	}
+}
+
 occMap diffusionDecomp::getMap() const {
 	return *m_map;
 }
