@@ -3,6 +3,8 @@
 #include <memory>
 #include <iostream>
 #include <utility>
+#include <algorithm>
+#include <unordered_map>
 #include "occMap.h"
 
 using namespace std;
@@ -32,8 +34,10 @@ public:
 	vector<vector<pair<int, int>>> findHBoundaries();
 	vector<vector<pair<int, int>>> findVBoundaries();
 	vector<vector<pair<int, int>>> findAllBoundaries();
-	vector<occMap> getAreas();
 
 	vector<pair<int, int>> findPerimeter(pair<int, int> sIdx);
+	vector<vector<pair<int, int>>> findAllPerimeters();
+
+	vector<occMap> getAreas();
 };
 

@@ -212,13 +212,6 @@ vector<vector<pair<int, int>>> diffusionDecomp::findAllBoundaries() {
 	return boundaries;
 }
 
-vector<occMap> diffusionDecomp::getAreas() {
-	vector<vector<int>> corners = findTLBoundCorner();
-	vector<vector<int>> mapInts = m_map->getMap();
-	vector<occMap> vecMap;
-	return vecMap;
-}
-
 vector<pair<int, int>> diffusionDecomp::findPerimeter(pair<int, int> sIdx) {
 	vector<pair<int, int>> perimeter;
 	vector<vector<pair<int, int>>> hBoundaries = findHBoundaries();
@@ -236,15 +229,61 @@ vector<pair<int, int>> diffusionDecomp::findPerimeter(pair<int, int> sIdx) {
 	}
 	perimeter.push_back(sIdx);
 	
-	pair<int, int> currentHBound{ -1, -1 }, currentVBound{ -1, -1 }, curBound{ -1, -1 };
+	pair<int, int> sHbound{ -1, -1 }, currentHBound{ -1, -1 }, currentVBound{ -1, -1 }, curBound{ -1, -1 };
+	direction dir = HORIZONTAL;
 
 	for(int i = 0; i < hBoundaries.size(); ++i) {
+		bool foundStart{ false };
 		for (int j = 0; j < hBoundaries[i].size(); ++j) {
 			if (hBoundaries[i][j] == sIdx) {
-				currentHBound = { i, j };
+				if (i == hBoundaries.size() - 1 && j < hBoundaries[i].size() - 1) {
+					if (hBoundaries[i][j + 1] == sIdx) {
+						currentHBound = { i, j + 1 };
+					} 
+					else {
+						currentHBound = { i, j };
+					}
+					curBound = hBoundaries[currentHBound.first][currentHBound.second];
+					dir = VERTICAL;
+					for (int i = 0; i < vBoundaries.size(); ++i) {
+						for (int j = 0; j < vBoundaries[i].size(); ++j) {
+							if (vBoundaries[i][j] == curBound) {
+								currentVBound = {i, j};
+								break;
+							}
+						}
+					}
+				}
+				else if (j < hBoundaries[i].size() - 1 && hBoundaries[i][j + 1] == sIdx) {
+					currentHBound = { i, j + 1 };
+				}
+				else if (j == hBoundaries[i].size() - 1 && i < hBoundaries.size() - 1) {
+					currentHBound = { i, j };
+					curBound = hBoundaries[currentHBound.first][currentHBound.second];
+					dir = VERTICAL;
+					for (int i = 0; i < vBoundaries.size(); ++i) {
+						for (int j = 0; j < vBoundaries[i].size(); ++j) {
+							if (vBoundaries[i][j] == curBound) {
+								if (j < vBoundaries[i].size() - 1 && vBoundaries[i][j + 1] == sIdx) {
+									currentVBound = { i, j + 1 };
+								}
+								else {
+									currentVBound = { i, j };
+								}
+								break;
+							}
+						}
+					}
+				}
+				else {
+					currentHBound = { i, j };
+				}
+				sHbound = currentHBound;
+				foundStart = true;
 				break;
 			}
 		}
+		if (foundStart) break;
 	}
 
 	if (currentHBound == make_pair(-1, -1)) {
@@ -254,11 +293,10 @@ vector<pair<int, int>> diffusionDecomp::findPerimeter(pair<int, int> sIdx) {
 
 	bool looped = false;
 	int loopCounter = 0;
-	direction dir = HORIZONTAL;
 
 	while (!looped) {
 		loopCounter++;
-		if(currentVBound == sIdx || currentHBound == sIdx) {
+		if(currentHBound == sHbound) {
 			if (perimeter.size() > 1) {
 				looped = true;
 				break;
@@ -268,22 +306,28 @@ vector<pair<int, int>> diffusionDecomp::findPerimeter(pair<int, int> sIdx) {
 			cerr << "Loop counter exceeded 100 iterations. Exiting loop." << endl;
 			break;
 		}
-		if (dir == HORIZONTAL && currentHBound.first % 2 == 0) {
-			currentHBound.first++;
+		if (dir == HORIZONTAL && currentHBound.second % 2 == 0) {
+			currentHBound.second++;
 			curBound = hBoundaries[currentHBound.first][currentHBound.second];
 			perimeter.push_back(curBound);
 			dir = VERTICAL;
 			for (int i = 0; i < vBoundaries.size(); ++i) {
 				for (int j = 0; j < vBoundaries[i].size(); ++j) {
 					if (vBoundaries[i][j] == curBound) {
-						currentVBound = { i, j };
+						if (j < vBoundaries[i].size() - 1 && vBoundaries[i][j + 1] == curBound) {
+							currentVBound = { i, j + 1 };
+						}
+						
+						else {
+							currentVBound = { i, j };
+						}
 						break;
 					}
 				}
 			}
 		}
-		else if (dir == VERTICAL && currentVBound.first % 2 == 0) {
-			currentVBound.first++;
+		else if (dir == VERTICAL && currentVBound.second % 2 == 0) {
+			currentVBound.second++;
 			curBound = vBoundaries[currentVBound.first][currentVBound.second];
 			perimeter.push_back(curBound);
 			dir = HORIZONTAL;
@@ -296,8 +340,8 @@ vector<pair<int, int>> diffusionDecomp::findPerimeter(pair<int, int> sIdx) {
 				}
 			}
 		}
-		else if (dir == HORIZONTAL && currentHBound.first % 2 == 1) {
-			currentHBound.first--;
+		else if (dir == HORIZONTAL && currentHBound.second % 2 == 1) {
+			currentHBound.second--;
 			curBound = hBoundaries[currentHBound.first][currentHBound.second];
 			perimeter.push_back(curBound);
 			dir = VERTICAL;
@@ -310,22 +354,66 @@ vector<pair<int, int>> diffusionDecomp::findPerimeter(pair<int, int> sIdx) {
 				}
 			}
 		}
-		else if (dir == VERTICAL && currentVBound.first % 2 == 1) {
-			currentVBound.first--;
+		else if (dir == VERTICAL && currentVBound.second % 2 == 1) {
+			currentVBound.second--;
 			curBound = vBoundaries[currentVBound.first][currentVBound.second];
 			perimeter.push_back(curBound);
 			dir = HORIZONTAL;
 			for (int i = 0; i < hBoundaries.size(); ++i) {
+				bool found{ false };
 				for (int j = 0; j < hBoundaries[i].size(); ++j) {
 					if (hBoundaries[i][j] == curBound) {
-						currentHBound = { i, j };
+						if (j < hBoundaries[i].size() - 1 && hBoundaries[i][j + 1] == curBound) {
+							currentHBound = { i, j + 1 };
+						}
+						else {
+							currentHBound = { i, j };
+						}
+						found = true;
 						break;
 					}
 				}
+				if (found) break;
 			}
 		}
 	}
-
-	perimeter.pop_back();
+	if (perimeter.front() == perimeter.back() && perimeter.size() > 1) { // Remove duplicate start/end point if looped
+		perimeter.pop_back();
+	}
 	return perimeter;
+}
+
+vector<vector<pair<int, int>>> diffusionDecomp::findAllPerimeters() {
+	vector<vector<pair<int, int>>> perimeters, visitedPerimeters; // To track visited perimeters
+	vector<vector<pair<int, int>>> boundaries = findAllBoundaries();
+
+	for (const auto& boundary : boundaries) {
+		for (const auto& idxPair : boundary) {
+			vector<pair<int, int>> curBoundary = findPerimeter(idxPair);
+			vector<pair<int, int>> sortedBoundary = curBoundary;
+			sort(sortedBoundary.begin(), sortedBoundary.end());
+			bool alreadyVisited{ false };
+
+			for (const auto& visited : visitedPerimeters) {
+				if (visited == sortedBoundary) {
+					alreadyVisited = true;
+					break;
+				}
+			}
+
+			if(!alreadyVisited && !curBoundary.empty()) {
+				perimeters.push_back(curBoundary);
+				visitedPerimeters.push_back(sortedBoundary);
+			}
+		}
+	}
+	
+	return perimeters;
+}
+
+vector<occMap> diffusionDecomp::getAreas() {
+	vector<vector<int>> corners = findTLBoundCorner();
+	vector<vector<int>> mapInts = m_map->getMap();
+	vector<occMap> vecMap;
+	return vecMap;
 }
