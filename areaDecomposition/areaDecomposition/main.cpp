@@ -79,6 +79,14 @@ int main() {
 		}
 		cout << endl;
 	}
+	cout << endl;
+
+	vector<occMap> areas = decomp.getSubAreas();
+
+	for (auto& area : areas) {
+		area.printMap();
+		cout << endl;
+	}
 
 	return 0;
 }

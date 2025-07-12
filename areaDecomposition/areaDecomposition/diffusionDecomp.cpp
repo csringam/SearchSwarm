@@ -411,9 +411,24 @@ vector<vector<pair<int, int>>> diffusionDecomp::findAllPerimeters() {
 	return perimeters;
 }
 
-vector<occMap> diffusionDecomp::getAreas() {
-	vector<vector<int>> corners = findTLBoundCorner();
+vector<occMap> diffusionDecomp::getSubAreas() {
+	vector<vector<pair<int, int>>> perimeters = findAllPerimeters();
 	vector<vector<int>> mapInts = m_map->getMap();
-	vector<occMap> vecMap;
-	return vecMap;
+	vector<occMap> occVec;
+
+	for (const auto& perimeter : perimeters) {
+		if (perimeter.empty()) continue;
+		int minRow = mapInts.size(), maxRow = -1, minCol = mapInts[0].size(), maxCol = -1;
+		for (const auto& idx : perimeter) {
+			minRow = min(minRow, idx.first);
+			maxRow = max(maxRow, idx.first);
+			minCol = min(minCol, idx.second);
+			maxCol = max(maxCol, idx.second);
+		}
+		if (minRow < 0 || maxRow >= mapInts.size() || minCol < 0 || maxCol >= mapInts[0].size()) continue;
+		occMap areaMap = m_map->getSection(minRow, maxRow, minCol, maxCol);
+		occVec.push_back(areaMap);
+	}
+
+	return occVec;
 }
