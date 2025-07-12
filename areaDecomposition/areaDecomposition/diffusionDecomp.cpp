@@ -404,7 +404,6 @@ vector<vector<pair<int, int>>> diffusionDecomp::findAllPerimeters() {
 			if(!alreadyVisited && !curBoundary.empty()) {
 				perimeters.push_back(curBoundary);
 				visitedPerimeters.push_back(sortedBoundary);
-
 			}
 		}
 	}
