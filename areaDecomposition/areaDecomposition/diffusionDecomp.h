@@ -39,5 +39,6 @@ public:
 	vector<vector<pair<int, int>>> findAllPerimeters();
 
 	vector<occMap> getSubAreas();
+	vector<int> getSubAreaOcc();
 };
 

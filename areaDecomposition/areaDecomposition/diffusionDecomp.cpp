@@ -432,3 +432,13 @@ vector<occMap> diffusionDecomp::getSubAreas() {
 
 	return occVec;
 }
+
+vector<int> diffusionDecomp::getSubAreaOcc() {
+	vector<occMap> subAreas = getSubAreas();
+	vector<int> occCounts;
+	for (auto& area : subAreas) {
+		int curOcc = area.getOccupancy();
+		occCounts.push_back(curOcc);
+	}
+	return occCounts;
+}

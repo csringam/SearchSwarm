@@ -90,5 +90,11 @@ int main() {
 		cout << endl;
 	}
 
+	vector<int> occCounts = decomp.getSubAreaOcc();
+
+	for(auto& occ : occCounts) {
+		cout << "Occupancy Count: " << occ << endl;
+	}
+
 	return 0;
 }
