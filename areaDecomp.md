@@ -1,5 +1,7 @@
 ## Area Decomposition Research
 
+LOOK INTO FLOOD FILL: https://en.wikipedia.org/wiki/Flood_fill
+
 # Papers:
 https://www.ri.cmu.edu/pub_files/pub4/choset_howie_1997_3/choset_howie_1997_3.pdf
 
