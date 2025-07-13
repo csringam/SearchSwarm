@@ -4,7 +4,7 @@ occMap::occMap(size_t width, size_t height) : m_width(width), m_height(height) {
 	m_map.resize(height, vector<int>(width, 0)); // Initialize with zeros
 }
 
-occMap::occMap(const vector<vector<int>>& map) : m_map(std::move(map)) {
+occMap::occMap(const vector<vector<int>>& map) : m_map(map) {
 	if (!m_map.empty()) {
 		m_height = m_map.size();
 		m_width = m_map[0].size();
@@ -130,4 +130,16 @@ void occMap::setIndex(int row, int col, occupancy val) {
 	}
 	m_map[row][col] = val;
 	return;
+}
+
+int occMap::getOccupancy() {
+	int occupancy = 0;
+	for (const auto& row : m_map) {
+		for (const auto& cell : row) {
+			if (cell == EMPTY) {
+				occupancy++;
+			}
+		}
+	}
+	return occupancy;
 }

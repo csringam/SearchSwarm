@@ -84,7 +84,9 @@ int main() {
 	vector<occMap> areas = decomp.getSubAreas();
 
 	for (auto& area : areas) {
+		int curOcc = area.getOccupancy();
 		area.printMap();
+		cout << "Occupancy: " << curOcc << endl;
 		cout << endl;
 	}
 
