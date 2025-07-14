@@ -442,3 +442,8 @@ vector<int> diffusionDecomp::getSubAreaOcc() {
 	}
 	return occCounts;
 }
+
+bool diffusionDecomp::isColinear(pair<int, int> p1, pair<int, int> p2, pair<int, int> p3) {
+	// Check if three points are collinear using area of triangle method
+	return (p2.second - p1.second) * (p3.first - p2.first) == (p3.second - p2.second) * (p2.first - p1.first);
+}
