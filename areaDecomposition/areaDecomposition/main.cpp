@@ -100,5 +100,8 @@ int main() {
 
 	cout << coIn << endl;
 
+	adjList adj = decomp.getAdjacencyList();
+	adj.printAdjList();
+
 	return 0;
 }

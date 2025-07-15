@@ -457,10 +457,22 @@ bool diffusionDecomp::isAdjacent(vector<pair<int, int>> target, vector<pair<int,
 			if (isCoincident(target[i], target[j], p)) {
 				if (p != target[i] && p != target[j]) return true;
 				else if (p == target[i] || p == target[j]) ++onBoundary;
-
 				if (onBoundary > 2)	return true;
 			}
 		}
 	}
 	return false;
+}
+
+adjList diffusionDecomp::getAdjacencyList() {
+	vector<vector<pair<int, int>>> perimeters = findAllPerimeters();
+	adjList adjacency(perimeters.size());
+	for (int i = 0; i < perimeters.size(); ++i) {
+		for (int j = i + 1; j < perimeters.size(); ++j) {
+			if (i != j && isAdjacent(perimeters[i], perimeters[j])) {
+				adjacency.addEdge(i, j);
+			}
+		}
+	}
+	return adjacency;
 }
