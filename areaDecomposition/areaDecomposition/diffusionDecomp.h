@@ -41,7 +41,7 @@ public:
 	vector<occMap> getSubAreas();
 	vector<int> getSubAreaOcc();
 
-	bool isColinear(pair<int, int> p1, pair<int, int> p2, pair<int, int> p3);
+	bool isCoincident(pair<int, int> ls, pair<int, int> lf, pair<int, int> p);
 
 };
 

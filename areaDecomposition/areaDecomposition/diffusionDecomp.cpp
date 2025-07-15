@@ -39,9 +39,9 @@ void diffusionDecomp::insertBoundary(int idx, direction dir) {
 
 void diffusionDecomp::padMap() {
 	m_map->insertRow(0, vector<int>(m_map->getWidth(), 2)); // Top padding
-	m_map->insertRow(m_map->getHeight(), vector<int>(m_map->getWidth(), 2)); //Bottom padding
+	m_map->insertRow(static_cast<int>(m_map->getHeight()), vector<int>(m_map->getWidth(), 2)); //Bottom padding
 	m_map->insertColumn(0, vector<int>(m_map->getHeight(), 2)); // Left padding
-	m_map->insertColumn(m_map->getWidth(), vector<int>(m_map->getHeight(), 2)); // Right padding
+	m_map->insertColumn(static_cast<int>(m_map->getWidth()), vector<int>(m_map->getHeight(), 2)); // Right padding
 	return;
 }
 
@@ -418,7 +418,7 @@ vector<occMap> diffusionDecomp::getSubAreas() {
 
 	for (const auto& perimeter : perimeters) {
 		if (perimeter.empty()) continue;
-		int minRow = mapInts.size(), maxRow = -1, minCol = mapInts[0].size(), maxCol = -1;
+		int minRow = static_cast<int>(mapInts.size()), maxRow = -1, minCol = static_cast<int>(mapInts[0].size()), maxCol = -1;
 		for (const auto& idx : perimeter) {
 			minRow = min(minRow, idx.first);
 			maxRow = max(maxRow, idx.first);
@@ -443,7 +443,8 @@ vector<int> diffusionDecomp::getSubAreaOcc() {
 	return occCounts;
 }
 
-bool diffusionDecomp::isColinear(pair<int, int> p1, pair<int, int> p2, pair<int, int> p3) {
-	// Check if three points are collinear using area of triangle method
-	return (p2.second - p1.second) * (p3.first - p2.first) == (p3.second - p2.second) * (p2.first - p1.first);
+bool diffusionDecomp::isCoincident(pair<int, int> ls, pair<int, int> lf, pair<int, int> p) {
+	if (p.first <= max(ls.first, lf.first) && p.first >= min(ls.first, lf.first)
+		&& p.second <= max(ls.second, lf.second) && p.second >= min(ls.second, lf.second)) return true;
+	return false;
 }

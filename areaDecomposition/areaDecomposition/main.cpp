@@ -96,5 +96,9 @@ int main() {
 		cout << "Occupancy Count: " << occ << endl;
 	}
 
+	bool coIn = decomp.isCoincident(allPerimeter[0][0], allPerimeter[0][1], allPerimeter[1][0]);
+
+	cout << coIn << endl;
+
 	return 0;
 }
