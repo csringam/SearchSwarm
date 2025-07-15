@@ -6,6 +6,7 @@
 #include <algorithm>
 #include <unordered_map>
 #include "occMap.h"
+#include "adjList.h"
 
 using namespace std;
 
