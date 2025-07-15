@@ -42,6 +42,7 @@ public:
 	vector<int> getSubAreaOcc();
 
 	bool isCoincident(pair<int, int> ls, pair<int, int> lf, pair<int, int> p);
+	bool isAdjacent(vector<pair<int, int>> target, vector<pair<int, int>> origin);
 
 };
 

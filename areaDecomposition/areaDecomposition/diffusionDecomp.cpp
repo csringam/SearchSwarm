@@ -448,3 +448,19 @@ bool diffusionDecomp::isCoincident(pair<int, int> ls, pair<int, int> lf, pair<in
 		&& p.second <= max(ls.second, lf.second) && p.second >= min(ls.second, lf.second)) return true;
 	return false;
 }
+
+bool diffusionDecomp::isAdjacent(vector<pair<int, int>> target, vector<pair<int, int>> origin) {
+	int onBoundary = 0;
+	for (int i = 0; i < target.size(); ++i) {
+		int j = (i + 1) % target.size();
+		for(const auto& p : origin) {
+			if (isCoincident(target[i], target[j], p)) {
+				if (p != target[i] && p != target[j]) return true;
+				else if (p == target[i] || p == target[j]) ++onBoundary;
+
+				if (onBoundary > 2)	return true;
+			}
+		}
+	}
+	return false;
+}
