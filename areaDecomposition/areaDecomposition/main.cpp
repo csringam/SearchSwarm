@@ -113,6 +113,8 @@ int main() {
 	decomp.assignProportions(adjPtr);
 
 	adj.printProportions();
+	cout << endl;
+	adj.printAdjListWithProportions();
 
 	return 0;
 }

@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include <iostream>
+#include <iomanip>
 
 using namespace std;
 
@@ -25,5 +26,6 @@ public:
 	void addEdge(int f, int s);
 	void printAdjList() const;
 	void printProportions() const;
+	void printAdjListWithProportions() const;
 };
 

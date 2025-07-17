@@ -24,3 +24,13 @@ void adjList::printProportions() const {
 		cout << "Vertex " << i << ": " << m_proportions[i] << endl;
 	}
 }
+
+void adjList::printAdjListWithProportions() const {
+	for (size_t i = 0; i < m_adjList.size(); ++i) {
+		cout << "Vertex " << i << ": ";
+		for (const auto& neighbor : m_adjList[i]) {
+			cout << fixed << setprecision(4) << (neighbor < m_proportions.size() ? m_proportions[neighbor] : 0) << " ";
+		}
+		cout << endl;
+	}
+}
