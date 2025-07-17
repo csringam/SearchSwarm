@@ -48,5 +48,7 @@ public:
 	adjList getAdjacencyList();
 
 	vector<float> getAreaProportions();
+
+	void assignProportions(adjList* adj);
 };
 

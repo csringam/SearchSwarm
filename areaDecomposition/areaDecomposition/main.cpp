@@ -109,5 +109,10 @@ int main() {
 		cout << "Occupancy Proportion: " << prop << endl;
 	}
 
+	adjList* adjPtr = &adj;
+	decomp.assignProportions(adjPtr);
+
+	adj.printProportions();
+
 	return 0;
 }

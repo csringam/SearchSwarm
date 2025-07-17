@@ -18,3 +18,9 @@ void adjList::printAdjList() const {
 		cout << endl;
 	}
 }
+
+void adjList::printProportions() const {
+	for (size_t i = 0; i < m_proportions.size(); ++i) {
+		cout << "Vertex " << i << ": " << m_proportions[i] << endl;
+	}
+}

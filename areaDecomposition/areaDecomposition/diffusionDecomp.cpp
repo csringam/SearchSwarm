@@ -487,3 +487,8 @@ vector<float> diffusionDecomp::getAreaProportions() {
 	}
 	return proportions;
 }
+
+void diffusionDecomp::assignProportions(adjList* adj) {
+	unique_ptr<vector<float>> proportions = make_unique<vector<float>>(getAreaProportions());
+	adj->setProportions(*proportions);
+}
