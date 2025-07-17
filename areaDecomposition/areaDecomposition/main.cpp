@@ -103,5 +103,11 @@ int main() {
 	adjList adj = decomp.getAdjacencyList();
 	adj.printAdjList();
 
+	vector<float> propors = decomp.getAreaProportions();
+
+	for (auto& prop : propors) {
+		cout << "Occupancy Proportion: " << prop << endl;
+	}
+
 	return 0;
 }

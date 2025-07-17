@@ -4,7 +4,7 @@
 #include <iostream>
 #include <utility>
 #include <algorithm>
-#include <unordered_map>
+#include <numeric>
 #include "occMap.h"
 #include "adjList.h"
 
@@ -46,5 +46,7 @@ public:
 	bool isAdjacent(vector<pair<int, int>> target, vector<pair<int, int>> origin);
 
 	adjList getAdjacencyList();
+
+	vector<float> getAreaProportions();
 };
 

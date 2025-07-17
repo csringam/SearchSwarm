@@ -476,3 +476,14 @@ adjList diffusionDecomp::getAdjacencyList() {
 	}
 	return adjacency;
 }
+
+vector<float> diffusionDecomp::getAreaProportions() {
+	vector<int> occCounts = getSubAreaOcc();
+	int totalOcc = accumulate(occCounts.begin(), occCounts.end(), 0);
+	vector<float> proportions;
+	for (const auto& occ : occCounts) {
+		if (totalOcc == 0) proportions.push_back(0.0f);
+		else proportions.push_back(static_cast<float>(occ) / totalOcc);
+	}
+	return proportions;
+}
