@@ -116,5 +116,9 @@ int main() {
 	cout << endl;
 	adj.printAdjListWithProportions();
 
+	int maxDiffIdx = decomp.getGreatestDiff(adjPtr);
+
+	cout << "Node with greatest difference from neighbors: " << maxDiffIdx << endl;
+
 	return 0;
 }

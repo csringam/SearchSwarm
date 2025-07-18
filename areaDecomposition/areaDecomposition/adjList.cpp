@@ -34,3 +34,10 @@ void adjList::printAdjListWithProportions() const {
 		cout << endl;
 	}
 }
+
+vector<int> adjList::getNeighbors(int node) const {
+	if (node < 0 || node >= m_adjList.size()) {
+		cerr << "Error: Node index out of bounds." << endl;
+	}
+	return m_adjList[node];
+}

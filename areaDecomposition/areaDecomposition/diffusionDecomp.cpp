@@ -492,3 +492,22 @@ void diffusionDecomp::assignProportions(adjList* adj) {
 	unique_ptr<vector<float>> proportions = make_unique<vector<float>>(getAreaProportions());
 	adj->setProportions(*proportions);
 }
+
+int diffusionDecomp::getGreatestDiff(adjList* adj) {
+	if (adj->getProportions().empty()) {
+		cerr << "Proportions not assigned to adjacency list." << endl;
+		return -1;
+	}
+	int maxIdx = -1;
+	float maxDiff = -1.0f;
+	for (int i = 0; i < adj->getAdjList().size(); ++i) {
+		for (const auto& neighbor : adj->getNeighbors(i)) {
+			float diff = abs(adj->getProportions()[i] - adj->getProportions()[neighbor]);
+			if (diff > maxDiff) {
+				maxDiff = diff;
+				maxIdx = i;
+			}
+		}
+	}
+	return maxIdx;
+}

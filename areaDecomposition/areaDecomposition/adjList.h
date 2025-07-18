@@ -21,11 +21,13 @@ public:
 	vector<vector<int>> getAdjList() const { return m_adjList; }
 	void setAdjList(const vector<vector<int>>& adjList) { m_adjList = adjList; }
 	void setProportions(const vector<float>& proportions) { m_proportions = proportions; }
+	vector<float> getProportions() const { return m_proportions; }
 	
 	// Utility Functions
 	void addEdge(int f, int s);
 	void printAdjList() const;
 	void printProportions() const;
 	void printAdjListWithProportions() const;
+	vector<int> getNeighbors(int node) const;
 };
 

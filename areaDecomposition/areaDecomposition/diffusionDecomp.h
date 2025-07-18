@@ -50,5 +50,7 @@ public:
 	vector<float> getAreaProportions();
 
 	void assignProportions(adjList* adj);
+
+	int getGreatestDiff(adjList* adj);
 };
 
