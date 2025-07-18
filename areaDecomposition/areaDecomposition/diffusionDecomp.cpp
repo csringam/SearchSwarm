@@ -511,3 +511,26 @@ int diffusionDecomp::getGreatestDiff(adjList* adj) {
 	}
 	return maxIdx;
 }
+
+vector<int> diffusionDecomp::getGreatestUnrelatedDiffs(adjList* adj) {
+	if (adj->getProportions().empty()) {
+		cerr << "Proportions not assigned to adjacency list." << endl;
+		return {};
+	}
+	vector<int> maxIdxs;
+	float maxDiff = -1.0f;
+	unordered_map<int, float> diffMap;
+	for (int i = 0; i < adj->getProportions().size(); ++i) {
+		diffMap[i] = adj->getProportions()[i];
+	}
+	while (diffMap.size() > 2) { // This is 2 because one node will always be adjacent to at least one other node
+		int curDiffIdx = getGreatestDiff(adj);
+		maxIdxs.push_back(curDiffIdx);
+		vector<int> neighbors = adj->getNeighbors(curDiffIdx);
+		for (const auto& neighbor : neighbors) {
+			diffMap.erase(neighbor);
+		}
+	}
+
+	return maxIdxs;
+}

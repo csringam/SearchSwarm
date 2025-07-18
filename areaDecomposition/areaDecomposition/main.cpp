@@ -23,7 +23,7 @@ int main() {
 	std::cout << std::endl;
 	sec.printMap();
 
-	sec.insertRow( 0, {1, 1} );
+	sec.insertRow(0, { 1, 1 });
 	sec.insertColumn(0, { 1, 0, 1 });
 
 	sec.insertRow(1, { 0, 1, 0 });
@@ -52,7 +52,7 @@ int main() {
 		}
 		cout << endl;
 	}
-	
+
 	pair<int, int> sIdx = { 0, 0 };
 	vector<pair<int, int>> perimeter = decomp.findPerimeter(sIdx);
 	cout << endl;
@@ -62,7 +62,7 @@ int main() {
 	}
 	cout << endl;
 
-	vector<pair<int, int>> perimeter2 = decomp.findPerimeter({ 2, 0});
+	vector<pair<int, int>> perimeter2 = decomp.findPerimeter({ 2, 0 });
 	cout << endl;
 
 	for (auto& idx : perimeter2) {
@@ -92,7 +92,7 @@ int main() {
 
 	vector<int> occCounts = decomp.getSubAreaOcc();
 
-	for(auto& occ : occCounts) {
+	for (auto& occ : occCounts) {
 		cout << "Occupancy Count: " << occ << endl;
 	}
 
@@ -116,9 +116,11 @@ int main() {
 	cout << endl;
 	adj.printAdjListWithProportions();
 
-	int maxDiffIdx = decomp.getGreatestDiff(adjPtr);
+	vector<int> maxDiffIdx = decomp.getGreatestUnrelatedDiffs(adjPtr);
 
-	cout << "Node with greatest difference from neighbors: " << maxDiffIdx << endl;
+	for (const auto& idx : maxDiffIdx) {
+		cout << "List of nodes with greatest difference from neighbors: " << idx << endl;
+	}
 
 	return 0;
 }

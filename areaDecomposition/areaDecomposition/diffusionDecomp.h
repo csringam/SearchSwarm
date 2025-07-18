@@ -5,6 +5,7 @@
 #include <utility>
 #include <algorithm>
 #include <numeric>
+#include <unordered_map>
 #include "occMap.h"
 #include "adjList.h"
 
@@ -52,5 +53,6 @@ public:
 	void assignProportions(adjList* adj);
 
 	int getGreatestDiff(adjList* adj);
+	vector<int> getGreatestUnrelatedDiffs(adjList* adj);
 };
 
