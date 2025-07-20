@@ -52,7 +52,8 @@ public:
 
 	void assignProportions(adjList* adj);
 
-	int getGreatestDiff(adjList* adj);
-	vector<int> getGreatestUnrelatedDiffs(adjList* adj);
+	int getGreatestDiffIdx(adjList* adj);
+	pair<int, float> greatestDiffAtIdx(adjList* adj, int idx);
+	vector<int> getGreatestUnrelatedDiffIdxs(adjList* adj);
 };
 

@@ -116,10 +116,11 @@ int main() {
 	cout << endl;
 	adj.printAdjListWithProportions();
 
-	vector<int> maxDiffIdx = decomp.getGreatestUnrelatedDiffs(adjPtr);
+	vector<int> maxDiffIdx = decomp.getGreatestUnrelatedDiffIdxs(adjPtr);
 
 	for (const auto& idx : maxDiffIdx) {
-		cout << "List of nodes with greatest difference from neighbors: " << idx << endl;
+		cout << "List of nodes with greatest difference from neighbors: " << idx << " ; At " <<
+			decomp.greatestDiffAtIdx(adjPtr, idx).first << " diff is greatest: " << decomp.greatestDiffAtIdx(adjPtr, idx).second << endl;
 	}
 
 	return 0;

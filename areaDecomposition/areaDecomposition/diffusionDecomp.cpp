@@ -493,7 +493,7 @@ void diffusionDecomp::assignProportions(adjList* adj) {
 	adj->setProportions(*proportions);
 }
 
-int diffusionDecomp::getGreatestDiff(adjList* adj) {
+int diffusionDecomp::getGreatestDiffIdx(adjList* adj) {
 	if (adj->getProportions().empty()) {
 		cerr << "Proportions not assigned to adjacency list." << endl;
 		return -1;
@@ -512,7 +512,27 @@ int diffusionDecomp::getGreatestDiff(adjList* adj) {
 	return maxIdx;
 }
 
-vector<int> diffusionDecomp::getGreatestUnrelatedDiffs(adjList* adj) {
+pair<int, float> diffusionDecomp::greatestDiffAtIdx(adjList* adj, int idx) {
+	pair<int, float> out{ -1, -1.0f };
+	if (adj->getProportions().empty()) {
+		cerr << "Proportions not assigned to adjacency list." << endl;
+		return out;
+	}
+	if (idx < 0 || idx >= adj->getAdjList().size()) {
+		cerr << "Index out of bounds." << endl;
+		return out;
+	}
+	for (const auto& neighbor : adj->getNeighbors(idx)) {
+		float diff = abs(adj->getProportions()[idx] - adj->getProportions()[neighbor]);
+		if (diff > out.second) {
+			out.second = diff;
+			out.first = neighbor;
+		}
+	}
+	return out;
+}
+
+vector<int> diffusionDecomp::getGreatestUnrelatedDiffIdxs(adjList* adj) {
 	if (adj->getProportions().empty()) {
 		cerr << "Proportions not assigned to adjacency list." << endl;
 		return {};
@@ -524,7 +544,7 @@ vector<int> diffusionDecomp::getGreatestUnrelatedDiffs(adjList* adj) {
 		diffMap[i] = adj->getProportions()[i];
 	}
 	while (diffMap.size() > 2) { // This is 2 because one node will always be adjacent to at least one other node
-		int curDiffIdx = getGreatestDiff(adj);
+		int curDiffIdx = getGreatestDiffIdx(adj);
 		maxIdxs.push_back(curDiffIdx);
 		vector<int> neighbors = adj->getNeighbors(curDiffIdx);
 		for (const auto& neighbor : neighbors) {
