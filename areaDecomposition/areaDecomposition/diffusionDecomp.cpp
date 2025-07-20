@@ -71,12 +71,12 @@ vector<vector<pair<int, int>>> diffusionDecomp::findHBoundaries() {
 		for (size_t j = 0; j < width; ++j) {
 			if (i < height - 1) {
 				if (j < width - 1) {
-					if ((*m_map).getMap()[i][j] == 2 && (*m_map).getMap()[i + 1][j] == 2 && (*m_map).getMap()[i][j + 1] == 2 && boundaryPos == 0) {
+					if (m_map->getMap()[i][j] == 2 && m_map->getMap()[i + 1][j] == 2 && m_map->getMap()[i][j + 1] == 2 && boundaryPos == 0) {
 						boundaryPos++;
 						pair<int, int> idxPair = make_pair(static_cast<int>(i), static_cast<int>(j));
 						curBoundary.push_back(idxPair);
 					}
-					else if ((*m_map).getMap()[i][j] == 2 && (*m_map).getMap()[i + 1][j] == 2 && boundaryPos == 1) {
+					else if (m_map->getMap()[i][j] == 2 && m_map->getMap()[i + 1][j] == 2 && boundaryPos == 1) {
 						boundaryPos = 0;
 						pair<int, int> idxPair = make_pair(static_cast<int>(i), static_cast<int>(j));
 						curBoundary.push_back(idxPair);
@@ -88,7 +88,7 @@ vector<vector<pair<int, int>>> diffusionDecomp::findHBoundaries() {
 					}
 				}
 				else if (j == width - 1) {
-					if ((*m_map).getMap()[i][j] == 2 && (*m_map).getMap()[i + 1][j] == 2 && boundaryPos == 1) {
+					if (m_map->getMap()[i][j] == 2 && m_map->getMap()[i + 1][j] == 2 && boundaryPos == 1) {
 						boundaryPos = 0;
 						pair<int, int> idxPair = make_pair(static_cast<int>(i), static_cast<int>(j));
 						curBoundary.push_back(idxPair);
@@ -98,16 +98,16 @@ vector<vector<pair<int, int>>> diffusionDecomp::findHBoundaries() {
 			}
 			else if (i == height - 1) {
 				if (j < width - 1) {
-					if ((*m_map).getMap()[i][j] == 2 && (*m_map).getMap()[i - 1][j] == 2 && (*m_map).getMap()[i][j + 1] == 2 && boundaryPos == 0) {
+					if (m_map->getMap()[i][j] == 2 && m_map->getMap()[i - 1][j] == 2 && m_map->getMap()[i][j + 1] == 2 && boundaryPos == 0) {
 						boundaryPos++;
 						pair<int, int> idxPair = make_pair(static_cast<int>(i), static_cast<int>(j));
 						curBoundary.push_back(idxPair);
 					}
-					else if ((*m_map).getMap()[i][j] == 2 && (*m_map).getMap()[i - 1][j] == 2 && boundaryPos == 1) {
+					else if (m_map->getMap()[i][j] == 2 && m_map->getMap()[i - 1][j] == 2 && boundaryPos == 1) {
 						boundaryPos = 0;
 						pair<int, int> idxPair = make_pair(static_cast<int>(i), static_cast<int>(j));
 						curBoundary.push_back(idxPair);
-						if (j < width - 1 && (*m_map).getMap()[i][j + 1] == 2) {
+						if (j < width - 1 && m_map->getMap()[i][j + 1] == 2) {
 							pair<int, int> idxPair = make_pair(static_cast<int>(i), static_cast<int>(j));
 							curBoundary.push_back(idxPair);
 							boundaryPos = 1;
@@ -115,7 +115,7 @@ vector<vector<pair<int, int>>> diffusionDecomp::findHBoundaries() {
 					}
 				}
 				else if (j == width - 1) {
-					if ((*m_map).getMap()[i][j] == 2 && (*m_map).getMap()[i - 1][j] == 2 && boundaryPos == 1) {
+					if (m_map->getMap()[i][j] == 2 && m_map->getMap()[i - 1][j] == 2 && boundaryPos == 1) {
 						boundaryPos = 0;
 						pair<int, int> idxPair = make_pair(static_cast<int>(i), static_cast<int>(j));
 						curBoundary.push_back(idxPair);
@@ -138,12 +138,12 @@ vector<vector<pair<int, int>>> diffusionDecomp::findVBoundaries() {
 		for (size_t i = 0; i < height; ++i) {
 			if (j < width - 1) {
 				if (i < height - 1) {
-					if ((*m_map).getMap()[i][j] == 2 && (*m_map).getMap()[i][j + 1] == 2 && (*m_map).getMap()[i + 1][j] == 2 && boundaryPos == 0) {
+					if (m_map->getMap()[i][j] == 2 && m_map->getMap()[i][j + 1] == 2 && m_map->getMap()[i + 1][j] == 2 && boundaryPos == 0) {
 						boundaryPos++;
 						pair<int, int> idxPair = make_pair(static_cast<int>(i), static_cast<int>(j));
 						curBoundary.push_back(idxPair);
 					}
-					else if ((*m_map).getMap()[i][j] == 2 && (*m_map).getMap()[i][j + 1] == 2 && boundaryPos == 1) {
+					else if (m_map->getMap()[i][j] == 2 && m_map->getMap()[i][j + 1] == 2 && boundaryPos == 1) {
 						boundaryPos = 0;
 						pair<int, int> idxPair = make_pair(static_cast<int>(i), static_cast<int>(j));
 						curBoundary.push_back(idxPair);
@@ -155,7 +155,7 @@ vector<vector<pair<int, int>>> diffusionDecomp::findVBoundaries() {
 					}
 				}
 				else if (i == height - 1) {
-					if ((*m_map).getMap()[i][j] == 2 && (*m_map).getMap()[i][j + 1] == 2 && boundaryPos == 1) {
+					if (m_map->getMap()[i][j] == 2 && m_map->getMap()[i][j + 1] == 2 && boundaryPos == 1) {
 						boundaryPos = 0;
 						pair<int, int> idxPair = make_pair(static_cast<int>(i), static_cast<int>(j));
 						curBoundary.push_back(idxPair);
@@ -165,16 +165,16 @@ vector<vector<pair<int, int>>> diffusionDecomp::findVBoundaries() {
 			}
 			else if (j == width - 1) {
 				if (i < height - 1) {
-					if ((*m_map).getMap()[i][j] == 2 && (*m_map).getMap()[i][j - 1] == 2 && (*m_map).getMap()[i + 1][j] == 2 && boundaryPos == 0) {
+					if (m_map->getMap()[i][j] == 2 && m_map->getMap()[i][j - 1] == 2 && m_map->getMap()[i + 1][j] == 2 && boundaryPos == 0) {
 						boundaryPos++;
 						pair<int, int> idxPair = make_pair(static_cast<int>(i), static_cast<int>(j));
 						curBoundary.push_back(idxPair);
 					}
-					else if ((*m_map).getMap()[i][j] == 2 && (*m_map).getMap()[i][j - 1] == 2 && boundaryPos == 1) {
+					else if (m_map->getMap()[i][j] == 2 && m_map->getMap()[i][j - 1] == 2 && boundaryPos == 1) {
 						boundaryPos = 0;
 						pair<int, int> idxPair = make_pair(static_cast<int>(i), static_cast<int>(j));
 						curBoundary.push_back(idxPair);
-						if (i < height - 1 && (*m_map).getMap()[i + 1][j] == 2) {
+						if (i < height - 1 && m_map->getMap()[i + 1][j] == 2) {
 							pair<int, int> idxPair = make_pair(static_cast<int>(i), static_cast<int>(j));
 							curBoundary.push_back(idxPair);
 							boundaryPos = 1;
@@ -182,7 +182,7 @@ vector<vector<pair<int, int>>> diffusionDecomp::findVBoundaries() {
 					}
 				}
 				else if (i == height - 1) {
-					if ((*m_map).getMap()[i][j] == 2 && (*m_map).getMap()[i][j - 1] == 2 && boundaryPos == 1) {
+					if (m_map->getMap()[i][j] == 2 && m_map->getMap()[i][j - 1] == 2 && boundaryPos == 1) {
 						boundaryPos = 0;
 						pair<int, int> idxPair = make_pair(static_cast<int>(i), static_cast<int>(j));
 						curBoundary.push_back(idxPair);
