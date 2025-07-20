@@ -132,6 +132,18 @@ void occMap::setIndex(int row, int col, occupancy val) {
 	return;
 }
 
+void occMap::swapIndex(int tarR, int tarC, int srcR, int srcC) {
+	if (tarR < 0 || tarR >= m_height || tarC < 0 || tarC >= m_width ||
+		srcR < 0 || srcR >= m_height || srcC < 0 || srcC >= m_width) {
+		cerr << "Error: Index out of bounds." << endl;
+		return;
+	}
+	int tarTemp = m_map[tarR][tarC];
+	m_map[tarR][tarC] = m_map[srcR][srcC];
+	m_map[srcR][srcC] = tarTemp;
+	return;
+}
+
 int occMap::getOccupancy() {
 	int occupancy = 0;
 	for (const auto& row : m_map) {

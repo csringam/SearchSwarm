@@ -122,6 +122,9 @@ int main() {
 		cout << "List of nodes with greatest difference from neighbors: " << idx << " ; At " <<
 			decomp.greatestDiffAtIdx(adjPtr, idx).first << " diff is greatest: " << decomp.greatestDiffAtIdx(adjPtr, idx).second << endl;
 	}
+	cout << endl;
+	map1.swapIndex(1, 1, 1, 2);
+	map1.printMap();
 
 	return 0;
 }

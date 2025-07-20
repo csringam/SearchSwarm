@@ -44,6 +44,7 @@ public:
 	void removeRow(int row);
 	void removeColumn(int col);
 	void setIndex(int row, int col, occupancy val);
+	void swapIndex(int tarR, int tarC, int srcR, int srcC);
 
 	int getOccupancy();
 };
