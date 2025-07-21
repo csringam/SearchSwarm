@@ -97,8 +97,10 @@ int main() {
 	}
 
 	bool coIn = decomp.isAdjacent(allPerimeter[1], allPerimeter[2]);
+	int ar1{ 2 }, ar2{ 3 };
+	direction boundType = decomp.boundaryType(ar1, ar2);
 
-	cout << coIn << endl;
+	cout << coIn << "\nBoundary Direction at " << ar1 << " and " << ar2 << " is: " << boundType << endl;
 
 	adjList adj = decomp.getAdjacencyList();
 	adj.printAdjList();
