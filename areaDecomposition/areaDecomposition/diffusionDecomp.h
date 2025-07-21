@@ -15,6 +15,7 @@ enum direction {HORIZONTAL, VERTICAL};
 
 class diffusionDecomp
 {
+	occMap mapIn;
 	occMap *m_map; // Occupancy map for diffusion decomposition
 	
 public:
