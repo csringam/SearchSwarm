@@ -128,5 +128,11 @@ int main() {
 	map1.swapIndex(1, 1, 1, 2);
 	map1.printMap();
 
+	occMap map2 = map1;
+
+	cout << endl;
+	map2.removeBorders();
+	map2.printMap();
+
 	return 0;
 }

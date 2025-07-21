@@ -144,6 +144,21 @@ void occMap::swapIndex(int tarR, int tarC, int srcR, int srcC) {
 	return;
 }
 
+void occMap::removeBorders() {
+	for (int i = 0; i < m_map.size(); ++i) {
+		for (int idx = 0; idx < m_map[i].size(); ++idx) {
+			if (m_map[i][idx] == BORDER) {
+				m_map[i].erase(m_map[i].begin() + idx);
+				idx--;
+			}
+		}
+		if(m_map[i].empty()) {
+			m_map.erase(remove(m_map.begin(), m_map.end(), m_map[i]), m_map.end());
+			i--;
+		}
+	}
+}
+
 int occMap::getOccupancy() {
 	int occupancy = 0;
 	for (const auto& row : m_map) {
