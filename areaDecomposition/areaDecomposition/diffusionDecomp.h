@@ -58,3 +58,68 @@ public:
 	vector<int> getGreatestUnrelatedDiffIdxs(adjList* adj);
 };
 
+/* Visualization for moving boundaries:
+* might have to move away from inserting 2's for boundaries, can still use 2's for initial
+* boundary and visualization, but after that, track the boundaries in the original occupancy
+* map using just the corner indices
+2 2 2 2 2 2 2 2
+2 1 1 1 2 0 0 2
+2 1 1 1 2 0 0 2
+2 2 2 2 2 0 0 2
+2 0 0 0 2 0 0 2
+2 0 0 0 2 0 0 2
+2 0 0 0 2 2 2 2
+2 0 0 0 2 1 1 2
+2 0 0 0 2 1 1 2
+2 2 2 2 2 2 2 2
+
+1 1 1  0 0
+1 1 1  0 0
+       0 0
+0 0 0  0 0
+0 0 0  0 0
+0 0 0 
+0 0 0  1 1
+0 0 0  1 1
+
+2 2 2 2 2 2 2 2
+2 1 1 1 0 2 0 2
+2 1 1 1 0 2 0 2
+2 2 2 2 2 0 0 2
+2 0 0 0 2 0 0 2
+2 0 0 0 2 0 0 2
+2 0 0 0 2 2 2 2
+2 0 0 0 2 1 1 2
+2 0 0 0 2 1 1 2
+2 2 2 2 2 2 2 2
+
+1 1 1 0  0
+1 1 1 0  0
+       0 0
+0 0 0  0 0
+0 0 0  0 0
+0 0 0
+0 0 0  1 1
+0 0 0  1 1
+
+2 2 2 2 2 2 2 2
+2 1 1 1 0 2 0 2
+2 1 1 1 0 2 0 2
+2 0 0 0 0 2 0 2
+2 2 2 2 2 0 0 2
+2 0 0 0 2 0 0 2
+2 0 0 0 2 2 2 2
+2 0 0 0 2 1 1 2
+2 0 0 0 2 1 1 2
+2 2 2 2 2 2 2 2
+
+1 1 1 0  0
+1 1 1 0  0
+0 0 0 0  0
+       0 0
+0 0 0  0 0
+0 0 0
+0 0 0  1 1
+0 0 0  1 1
+
+*/
