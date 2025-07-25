@@ -17,3 +17,16 @@ class CONV2D:
 
         return Y;
 
+class CONV2DLAYER:
+    def __init__(self, kernel, outSize='same'):
+        self.kernel = kernel
+        self.outSize = outSize
+
+    def forward(self, X):
+        if self.outSize == 'same':
+            padding = (self.kernel.shape[0] // 2)
+        else:
+            padding = 0
+
+        convOut = CONV2D(self.kernel.shape[0], padding)
+        return convOut.convolve(X, self.kernel)
