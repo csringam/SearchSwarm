@@ -28,6 +28,3 @@ class KNN:
             y_pred.append(label)
 
         return np.array(y_pred)
-
-
-print("KNN classifier is ready to use.")
