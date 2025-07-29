@@ -469,6 +469,51 @@ bool diffusionDecomp::isAdjacent(vector<pair<int, int>> target, vector<pair<int,
 	return false;
 }
 
+vector<vector<int>> diffusionDecomp::sharedBoundary(int targetArea, int srcArea) {
+	vector<vector<pair<int, int>>> perimeters = findAllPerimeters();
+	vector<vector<int>> sharedBound;
+	vector<pair<int, int>> target{ perimeters[targetArea] }, src{ perimeters[srcArea] };
+	direction bType = boundaryType(targetArea, srcArea);
+	for (int i = 0; i < target.size(); ++i) {
+		int j = (i + 1) % target.size();
+		for (int k = 0; k < src.size(); ++k) {
+			if (isCoincident(target[i], target[j], src[k])) {
+				vector<int> firstBound{ i, j };
+				vector<int> secondBound;
+				int l = ((src.size() - 1) + k) % src.size();
+				int r = (k + 1) % src.size();
+				if (bType == HORIZONTAL && target[i].first == src[l].first) {
+					secondBound.push_back(l);
+					secondBound.push_back(k);
+				} else if (bType == HORIZONTAL && target[i].first == src[r].first) {
+					secondBound.push_back(k);
+					secondBound.push_back(r);
+				}
+				else if (bType == VERTICAL && target[i].second == src[l].second) {
+					secondBound.push_back(l);
+					secondBound.push_back(k);
+				}
+				else if (bType == VERTICAL && target[i].second == src[r].second) {
+					secondBound.push_back(k);
+					secondBound.push_back(r);
+				}
+				if (target[i].first == target[j].first) {
+					sharedBound.push_back(firstBound);
+					sharedBound.push_back(secondBound);
+					return sharedBound;
+				}
+				else if (target[i].second == target[j].second) {
+					sharedBound.push_back(firstBound);
+					sharedBound.push_back(secondBound);
+					return sharedBound;
+
+				}
+			}
+		}
+	}
+	return sharedBound;
+}
+
 direction diffusionDecomp::boundaryType(int targetArea, int srcArea) {
 	vector<vector<pair<int, int>>> perimeters = findAllPerimeters();
 	if (targetArea < 0 || targetArea >= perimeters.size() || srcArea < 0 || srcArea >= perimeters.size()) {
@@ -489,6 +534,14 @@ direction diffusionDecomp::boundaryType(int targetArea, int srcArea) {
 			}
 		}
 	}
+}
+
+cardinal diffusionDecomp::boundaryOrientation(int targetArea, int srcArea) {
+	vector<vector<pair<int, int>>> perimeters = findAllPerimeters();
+	vector<pair<int, int>> target{ perimeters[targetArea] }, src{ perimeters[srcArea] };
+	direction bType = boundaryType(targetArea, srcArea);
+
+	return NORTH;
 }
 
 adjList diffusionDecomp::getAdjacencyList() {

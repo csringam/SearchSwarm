@@ -81,6 +81,14 @@ int main() {
 	}
 	cout << endl;
 
+	vector<vector<int>> sharedBound = decomp.sharedBoundary(1, 0);
+
+	map1.printMap();
+
+	cout << endl << "Shared Boundary between area 1 and 0: " << endl;
+	cout << sharedBound[0][0] << "," << sharedBound[0][1] << endl;
+	cout << sharedBound[1][0] << "," << sharedBound[1][1] << endl << endl;
+
 	vector<occMap> areas = decomp.getSubAreas();
 
 	for (auto& area : areas) {
@@ -133,6 +141,7 @@ int main() {
 	cout << endl;
 	map2.removeBorders();
 	map2.printMap();
+	cout << endl;
 
 	return 0;
 }

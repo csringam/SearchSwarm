@@ -12,6 +12,7 @@
 using namespace std;
 
 enum direction {HORIZONTAL, VERTICAL};
+enum cardinal { NORTH, EAST, SOUTH, WEST };
 
 class diffusionDecomp
 {
@@ -47,7 +48,9 @@ public:
 
 	bool isCoincident(pair<int, int> ls, pair<int, int> lf, pair<int, int> p);
 	bool isAdjacent(vector<pair<int, int>> target, vector<pair<int, int>> origin);
+	vector<vector<int>> sharedBoundary(int targetArea, int srcArea);
 	direction boundaryType(int targetArea, int srcArea);
+	cardinal boundaryOrientation(int targetArea, int srcArea);
 
 	adjList getAdjacencyList();
 
