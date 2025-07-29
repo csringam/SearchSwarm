@@ -40,6 +40,7 @@ public:
 
 	vector<pair<int, int>> findPerimeter(pair<int, int> sIdx);
 	vector<vector<pair<int, int>>> findAllPerimeters();
+	vector<vector<pair<int, int>>> findIntCorners();
 
 	vector<occMap> getSubAreas();
 	vector<int> getSubAreaOcc();

@@ -411,6 +411,11 @@ vector<vector<pair<int, int>>> diffusionDecomp::findAllPerimeters() {
 	return perimeters;
 }
 
+vector<vector<pair<int, int>>> diffusionDecomp::findIntCorners() {
+	vector<pair<int, int>> corners;
+	return vector<vector<pair<int, int>>>{corners};
+}
+
 vector<occMap> diffusionDecomp::getSubAreas() {
 	vector<vector<pair<int, int>>> perimeters = findAllPerimeters();
 	vector<vector<int>> mapInts = m_map->getMap();
