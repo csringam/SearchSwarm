@@ -498,39 +498,25 @@ vector<vector<int>> diffusionDecomp::sharedBoundary(int targetArea, int srcArea)
 	direction bType = boundaryType(targetArea, srcArea);
 	for (int i = 0; i < target.size(); ++i) {
 		int j = (i + 1) % target.size();
-		for (int k = 0; k < src.size(); ++k) {
-			if (isCoincident(target[i], target[j], src[k])) {
-				vector<int> firstBound{ i, j };
-				vector<int> secondBound;
-				int l = ((src.size() - 1) + k) % src.size();
-				int r = (k + 1) % src.size();
-				if (bType == HORIZONTAL && target[i].first == src[l].first) {
-					secondBound.push_back(l);
-					secondBound.push_back(k);
-				}
-				else if (bType == HORIZONTAL && target[i].first == src[r].first) {
-					secondBound.push_back(k);
-					secondBound.push_back(r);
-				}
-				else if (bType == VERTICAL && target[i].second == src[l].second) {
-					secondBound.push_back(l);
-					secondBound.push_back(k);
-				}
-				else if (bType == VERTICAL && target[i].second == src[r].second) {
-					secondBound.push_back(k);
-					secondBound.push_back(r);
-				}
-				if (target[i].first == target[j].first) {
-					sharedBound.push_back(firstBound);
-					sharedBound.push_back(secondBound);
+		if (bType == HORIZONTAL && target[i].first == target[j].first) {
+			for (int k = 0; k < src.size(); ++k) {
+				int l = (k + 1) % src.size();
+				if (src[k].first == src[l].first && isCoincident(target[i], target[j], src[k])) {
+					sharedBound.push_back({ i, j });
+					sharedBound.push_back({ k, l });
 					return sharedBound;
 				}
-				else if (target[i].second == target[j].second) {
-					sharedBound.push_back(firstBound);
-					sharedBound.push_back(secondBound);
+			}
+		}
+		else if (bType == VERTICAL && target[i].second == target[j].second) {
+			for (int k = 0; k < src.size(); ++k) {
+				int l = (k + 1) % src.size();
+				if (src[k].second == src[l].second && isCoincident(target[i], target[j], src[k])) {
+					sharedBound.push_back({ i, j });
+					sharedBound.push_back({ k, l });
 					return sharedBound;
+				}
 
-				}
 			}
 		}
 	}
@@ -540,7 +526,15 @@ vector<vector<int>> diffusionDecomp::sharedBoundary(int targetArea, int srcArea)
 cardinal diffusionDecomp::boundaryOrientation(int targetArea, int srcArea) {
 	vector<vector<pair<int, int>>> perimeters = findAllPerimeters();
 	vector<pair<int, int>> target{ perimeters[targetArea] }, src{ perimeters[srcArea] };
+	vector<vector<int>> sharedBound = sharedBoundary(targetArea, srcArea);
 	direction bType = boundaryType(targetArea, srcArea);
+	if (sharedBound.size() != 2) {
+		cerr << "Shared boundary not found or invalid." << endl;
+		return NORTH;
+	}
+
+	pair<int, int> tStart = target[sharedBound[0][0]];
+	pair<int, int> sStart = src[sharedBound[1][0]];
 
 	return NORTH;
 }
