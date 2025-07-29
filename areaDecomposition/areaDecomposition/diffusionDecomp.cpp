@@ -469,6 +469,28 @@ bool diffusionDecomp::isAdjacent(vector<pair<int, int>> target, vector<pair<int,
 	return false;
 }
 
+direction diffusionDecomp::boundaryType(int targetArea, int srcArea) {
+	vector<vector<pair<int, int>>> perimeters = findAllPerimeters();
+	if (targetArea < 0 || targetArea >= perimeters.size() || srcArea < 0 || srcArea >= perimeters.size()) {
+		cerr << "Target or source out of bounds." << endl;
+		return HORIZONTAL;
+	}
+	if (!isAdjacent(perimeters[targetArea], perimeters[srcArea])) {
+		cerr << "Target and source areas are not adjacent." << endl;
+		return HORIZONTAL;
+	}
+	vector<pair<int, int>> target{ perimeters[targetArea] }, src{ perimeters[srcArea] };
+	for (int i = 0; i < target.size(); ++i) {
+		int j = (i + 1) % target.size();
+		for (const auto& pt: src) {
+			if (isCoincident(target[i], target[j], pt)) {
+				if (target[i].first == target[j].first) return VERTICAL;
+				else if (target[i].second == target[j].second) return HORIZONTAL;
+			}
+		}
+	}
+}
+
 vector<vector<int>> diffusionDecomp::sharedBoundary(int targetArea, int srcArea) {
 	vector<vector<pair<int, int>>> perimeters = findAllPerimeters();
 	vector<vector<int>> sharedBound;
@@ -485,7 +507,8 @@ vector<vector<int>> diffusionDecomp::sharedBoundary(int targetArea, int srcArea)
 				if (bType == HORIZONTAL && target[i].first == src[l].first) {
 					secondBound.push_back(l);
 					secondBound.push_back(k);
-				} else if (bType == HORIZONTAL && target[i].first == src[r].first) {
+				}
+				else if (bType == HORIZONTAL && target[i].first == src[r].first) {
 					secondBound.push_back(k);
 					secondBound.push_back(r);
 				}
@@ -512,28 +535,6 @@ vector<vector<int>> diffusionDecomp::sharedBoundary(int targetArea, int srcArea)
 		}
 	}
 	return sharedBound;
-}
-
-direction diffusionDecomp::boundaryType(int targetArea, int srcArea) {
-	vector<vector<pair<int, int>>> perimeters = findAllPerimeters();
-	if (targetArea < 0 || targetArea >= perimeters.size() || srcArea < 0 || srcArea >= perimeters.size()) {
-		cerr << "Target or source out of bounds." << endl;
-		return HORIZONTAL;
-	}
-	if (!isAdjacent(perimeters[targetArea], perimeters[srcArea])) {
-		cerr << "Target and source areas are not adjacent." << endl;
-		return HORIZONTAL;
-	}
-	vector<pair<int, int>> target{ perimeters[targetArea] }, src{ perimeters[srcArea] };
-	for (int i = 0; i < target.size(); ++i) {
-		int j = (i + 1) % target.size();
-		for (const auto& pt: src) {
-			if (isCoincident(target[i], target[j], pt)) {
-				if (target[i].first == target[j].first) return VERTICAL;
-				else if (target[i].second == target[j].second) return HORIZONTAL;
-			}
-		}
-	}
 }
 
 cardinal diffusionDecomp::boundaryOrientation(int targetArea, int srcArea) {
