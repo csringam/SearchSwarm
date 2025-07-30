@@ -652,7 +652,6 @@ void diffusionDecomp::horizantalBoundaryMap() {
 	int numBorders{ 0 };
 	bool pastBorder{ false };
 
-	cout << "Generating horizontal boundary map..." << endl;
 	for (int i = 0; i < height; ++i) {
 		vector<int> curRow(width, 0);
 		for (int j = 0; j < width; ++j) {
@@ -662,18 +661,54 @@ void diffusionDecomp::horizantalBoundaryMap() {
 					numBorders++;
 				}
 				curRow.push_back(numBorders);
-				cout << numBorders << " ";
 			}
 			else {
 				pastBorder = false;
 				curRow.push_back(numBorders);
-				cout << numBorders << " ";
 			}
 		}
 		hBorders.push_back(curRow);
 		pastBorder = false;
 		numBorders = 0;
-		cout << endl;
 	}
+	return;
+}
+
+void diffusionDecomp::verticalBoundaryMap() {
+	size_t width{ m_map->getWidth() }, height{ m_map->getHeight() };
+	int numBorders{ 0 };
+	bool pastBorder{ false };
+	vector<vector<int>> temp;
+
+	for (int j = 0; j < width; ++j) {
+		vector<int> curCol;
+		for (int i = 0; i < height; ++i) {
+			if (m_map->getMap()[i][j] == 2) {
+				if (!pastBorder) {
+					pastBorder = true;
+					numBorders++;
+				}
+				curCol.push_back(numBorders);
+			}
+			else {
+				pastBorder = false;
+				curCol.push_back(numBorders);
+			}
+		}
+		temp.push_back(curCol);
+		pastBorder = false;
+		numBorders = 0;
+	}
+
+
+	for (int i = 0; i < temp.size(); ++i) {
+		for (int j = 0; j < temp[i].size(); ++j) {
+			if (vBorders.size() <= j) {
+				vBorders.push_back(vector<int>(width, 0));
+			}
+			vBorders[j][i] = temp[i][j];
+		}
+	}
+
 	return;
 }

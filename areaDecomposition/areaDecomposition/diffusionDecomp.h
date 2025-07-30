@@ -66,6 +66,7 @@ public:
 	vector<int> getGreatestUnrelatedDiffIdxs(adjList* adj);
 
 	void horizantalBoundaryMap();
+	void verticalBoundaryMap();
 };
 
 /* Visualization for moving boundaries:

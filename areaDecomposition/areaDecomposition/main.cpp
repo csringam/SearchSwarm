@@ -147,5 +147,7 @@ int main() {
 	map1.printMap();
 	decomp.horizantalBoundaryMap();
 
+	decomp.verticalBoundaryMap();
+
 	return 0;
 }
