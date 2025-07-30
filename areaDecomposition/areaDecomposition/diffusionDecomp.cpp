@@ -533,8 +533,27 @@ cardinal diffusionDecomp::boundaryOrientation(int targetArea, int srcArea) {
 		return NORTH;
 	}
 
-	pair<int, int> tStart = target[sharedBound[0][0]];
-	pair<int, int> sStart = src[sharedBound[1][0]];
+	if (bType == HORIZONTAL) {
+		for (auto s : src) {
+			for (auto t : target) {
+				if (t.second > s.second) return NORTH;
+				else if (t.second < s.second) return SOUTH;
+
+			}
+		}
+	}
+
+	if (bType == VERTICAL) {
+		for (auto s : src) {
+			for (auto t : target) {
+				if (t.second > s.second) return EAST;
+				else if (t.second < s.second) return WEST;
+
+			}
+		}
+	}
+
+	
 
 	return NORTH;
 }
