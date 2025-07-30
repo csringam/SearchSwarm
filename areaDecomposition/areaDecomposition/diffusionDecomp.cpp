@@ -553,8 +553,6 @@ cardinal diffusionDecomp::boundaryOrientation(int targetArea, int srcArea) {
 		}
 	}
 
-	
-
 	return NORTH;
 }
 

@@ -18,6 +18,8 @@ class diffusionDecomp
 {
 	occMap mapIn;
 	occMap *m_map; // Occupancy map for diffusion decomposition
+	vector<vector<int>> hBorders; // 2D array to represent num of horizontal boundaries
+	vector<vector<int>> vBorders; // 2D array to represent num of vertical boundaries
 	
 public:
 
