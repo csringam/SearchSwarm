@@ -64,6 +64,8 @@ public:
 	int getGreatestDiffIdx(adjList* adj);
 	pair<int, float> greatestDiffAtIdx(adjList* adj, int idx);
 	vector<int> getGreatestUnrelatedDiffIdxs(adjList* adj);
+
+	void horizantalBoundaryMap();
 };
 
 /* Visualization for moving boundaries:

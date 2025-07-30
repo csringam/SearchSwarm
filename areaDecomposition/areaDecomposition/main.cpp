@@ -143,5 +143,9 @@ int main() {
 	map2.printMap();
 	cout << endl;
 
+	cout << "Latest map 1:" << endl;
+	map1.printMap();
+	decomp.horizantalBoundaryMap();
+
 	return 0;
 }

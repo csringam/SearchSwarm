@@ -646,3 +646,34 @@ vector<int> diffusionDecomp::getGreatestUnrelatedDiffIdxs(adjList* adj) {
 
 	return maxIdxs;
 }
+
+void diffusionDecomp::horizantalBoundaryMap() {
+	size_t width{ m_map->getWidth() }, height{ m_map->getHeight() };
+	int numBorders{ 0 };
+	bool pastBorder{ false };
+
+	cout << "Generating horizontal boundary map..." << endl;
+	for (int i = 0; i < height; ++i) {
+		vector<int> curRow(width, 0);
+		for (int j = 0; j < width; ++j) {
+			if (m_map->getMap()[i][j] == 2) {
+				if (!pastBorder) {
+					pastBorder = true;
+					numBorders++;
+				}
+				curRow.push_back(numBorders);
+				cout << numBorders << " ";
+			}
+			else {
+				pastBorder = false;
+				curRow.push_back(numBorders);
+				cout << numBorders << " ";
+			}
+		}
+		hBorders.push_back(curRow);
+		pastBorder = false;
+		numBorders = 0;
+		cout << endl;
+	}
+	return;
+}
