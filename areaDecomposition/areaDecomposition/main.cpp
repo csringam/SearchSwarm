@@ -146,7 +146,6 @@ int main() {
 	cout << "Latest map 1:" << endl;
 	map1.printMap();
 	decomp.horizantalBoundaryMap();
-
 	decomp.verticalBoundaryMap();
 
 	vector<pair<int, int>> intCorners = decomp.getIntCorners(allPerimeter[3]);
