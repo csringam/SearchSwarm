@@ -67,6 +67,12 @@ public:
 
 	void horizantalBoundaryMap();
 	void verticalBoundaryMap();
+
+	bool cornerIsBelow(pair<int, int> target, pair<int, int> src);
+	bool cornerIsAbove(pair<int, int> target, pair<int, int> src);
+	bool cornerIsLeft(pair<int, int> target, pair<int, int> src);
+	bool cornerIsRight(pair<int, int> target, pair<int, int> src);
+	vector<pair<int, int>> getIntCorners(vector<pair<int, int>> perimeter);
 };
 
 /* Visualization for moving boundaries:

@@ -712,3 +712,34 @@ void diffusionDecomp::verticalBoundaryMap() {
 
 	return;
 }
+
+bool diffusionDecomp::cornerIsBelow(pair<int, int> target, pair<int, int> src) {
+	if (target.first == src.first && target.second < src.second) return true;
+	return false;
+}
+
+bool diffusionDecomp::cornerIsAbove(pair<int, int> target, pair<int, int> src) {
+	if (target.first == src.first && target.second > src.second) return true;
+	return false;
+}
+
+bool diffusionDecomp::cornerIsLeft(pair<int, int> target, pair<int, int> src) {
+	if (target.first < src.first && target.second == src.second) return true;
+	return false;
+}
+
+bool diffusionDecomp::cornerIsRight(pair<int, int> target, pair<int, int> src) {
+	if (target.first > src.first && target.second == src.second) return true;
+	return false;
+}
+
+vector<pair<int, int>> diffusionDecomp::getIntCorners(vector<pair<int, int>> perimeter) {
+	vector<pair<int, int>> out;
+	for (int j = 0; j < perimeter.size(); ++j) {
+		int i{(perimeter.size() - 1 + j) % perimeter.size()}, k{(j + 1) % perimeter.size()};
+		pair<int, int> prevCorn{ perimeter[i] }, curCorn{ perimeter[j] }, nextCorn{ perimeter[k] };
+
+
+	}
+	return out;
+}
