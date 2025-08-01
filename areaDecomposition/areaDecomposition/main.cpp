@@ -149,5 +149,11 @@ int main() {
 
 	decomp.verticalBoundaryMap();
 
+	vector<pair<int, int>> intCorners = decomp.getIntCorners(allPerimeter[3]);
+	cout << endl;
+	for (const auto& corner : intCorners) {
+		cout << "[" << corner.first << "," << corner.second << "], ";
+	}
+
 	return 0;
 }

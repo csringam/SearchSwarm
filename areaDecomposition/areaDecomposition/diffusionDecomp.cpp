@@ -714,31 +714,62 @@ void diffusionDecomp::verticalBoundaryMap() {
 }
 
 bool diffusionDecomp::cornerIsBelow(pair<int, int> target, pair<int, int> src) {
-	if (target.first == src.first && target.second < src.second) return true;
+	if (target.first > src.first && target.second == src.second) return true;
 	return false;
 }
 
 bool diffusionDecomp::cornerIsAbove(pair<int, int> target, pair<int, int> src) {
-	if (target.first == src.first && target.second > src.second) return true;
-	return false;
-}
-
-bool diffusionDecomp::cornerIsLeft(pair<int, int> target, pair<int, int> src) {
 	if (target.first < src.first && target.second == src.second) return true;
 	return false;
 }
 
+bool diffusionDecomp::cornerIsLeft(pair<int, int> target, pair<int, int> src) {
+	if (target.first == src.first && target.second > src.second) return true;
+	return false;
+}
+
 bool diffusionDecomp::cornerIsRight(pair<int, int> target, pair<int, int> src) {
-	if (target.first > src.first && target.second == src.second) return true;
+	if (target.first == src.first && target.second < src.second) return true;
 	return false;
 }
 
 vector<pair<int, int>> diffusionDecomp::getIntCorners(vector<pair<int, int>> perimeter) {
 	vector<pair<int, int>> out;
-	for (int j = 0; j < perimeter.size(); ++j) {
-		int i{(perimeter.size() - 1 + j) % perimeter.size()}, k{(j + 1) % perimeter.size()};
+	int n{ static_cast<int>(perimeter.size()) };
+	for (int j = 0; j < n; ++j) {
+		int i{(n - 1 + j) % n }, k{(j + 1) % n };
 		pair<int, int> prevCorn{ perimeter[i] }, curCorn{ perimeter[j] }, nextCorn{ perimeter[k] };
-
+		if (cornerIsBelow(prevCorn, curCorn) && cornerIsRight(curCorn, nextCorn)) {
+			pair<int, int> cur{ curCorn.first + 1, curCorn.second + 1 };
+			out.push_back(cur);
+		} else if (cornerIsLeft(prevCorn, curCorn) && cornerIsBelow(curCorn, nextCorn)) {
+			pair<int, int> cur{ curCorn.first - 1, curCorn.second + 1 };
+			out.push_back(cur);
+		}
+		else if (cornerIsAbove(prevCorn, curCorn) && cornerIsLeft(curCorn, nextCorn)) {
+			pair<int, int> cur{ curCorn.first - 1, curCorn.second - 1 };
+			out.push_back(cur);
+		}
+		else if (cornerIsRight(prevCorn, curCorn) && cornerIsAbove(curCorn, nextCorn)) {
+			pair<int, int> cur{ curCorn.first + 1, curCorn.second - 1 };
+			out.push_back(cur);
+		}
+		else if (cornerIsLeft(prevCorn, curCorn) && cornerIsAbove(curCorn, nextCorn)) {
+			pair<int, int> cur{ curCorn.first + 1, curCorn.second + 1 };
+			out.push_back(cur);
+		}
+		else if (cornerIsAbove(prevCorn, curCorn) && cornerIsRight(curCorn, nextCorn)) {
+			pair<int, int> cur{ curCorn.first - 1, curCorn.second + 1 };
+			out.push_back(cur);
+		}
+		else if (cornerIsRight(prevCorn, curCorn) && cornerIsBelow(curCorn, nextCorn)) {
+			pair<int, int> cur{ curCorn.first - 1, curCorn.second - 1 };
+			out.push_back(cur);
+		}
+		else if (cornerIsBelow(prevCorn, curCorn) && cornerIsLeft(curCorn, nextCorn)) {
+			pair<int, int> cur{ curCorn.first + 1, curCorn.second - 1 };
+			out.push_back(cur);
+		}
 
 	}
 	return out;
