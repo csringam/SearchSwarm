@@ -96,6 +96,23 @@ vector<vector<int>> diffusionDecomp::findTLBoundCorner() {
 	return corners;
 }
 
+/*
+name:		findHBoundaries
+
+inputs:		none
+
+outputs:	Vector of horizontal boundaries, each represented as a vector of
+			pairs of indices (row, col) marking the start and end of each
+			horizontal boundary segment.
+
+descr:		Finds all horizontal boundaries in the occupancy map.
+			A horizontal boundary is defined as a contiguous sequence of
+			cells with value 2 (BORDER) that have cells with value 2
+			directly to the left and/or right.
+			Returns a vector of vectors, where each inner vector contains
+			pairs of indices marking the start and end of each horizontal
+			boundary segment.
+*/
 vector<vector<pair<int, int>>> diffusionDecomp::findHBoundaries() {
 	vector<vector<pair<int, int>>> boundaries;
 	size_t width = m_map->getWidth();
@@ -164,6 +181,23 @@ vector<vector<pair<int, int>>> diffusionDecomp::findHBoundaries() {
 	return boundaries;
 }
 
+/*
+name:		findVBoundaries
+
+inputs:		none
+
+outputs:	Vector of vertical boundaries, each represented as a vector of
+			pairs of indices (row, col) marking the start and end of each
+			vertical boundary segment.
+
+descr:		Finds all vertical boundaries in the occupancy map.
+			A vertical boundary is defined as a contiguous sequence of
+			cells with value 2 (BORDER) that have cells with value 2
+			directly to the top and/or bottom.
+			Returns a vector of vectors, where each inner vector contains
+			pairs of indices marking the start and end of each vertical
+			boundary segment.
+*/
 vector<vector<pair<int, int>>> diffusionDecomp::findVBoundaries() {
 	vector<vector<pair<int, int>>> boundaries;
 	size_t width = m_map->getWidth();
@@ -231,6 +265,17 @@ vector<vector<pair<int, int>>> diffusionDecomp::findVBoundaries() {
 	return boundaries;
 }
 
+/*
+name:		findAllBoundaries
+
+inputs:		none
+
+outputs:	Vector of all boundaries (horizontal and vertical), each represented
+			as a vector of pairs of indices (row, col) marking the start and
+			end of each boundary segment.
+
+descr:		Finds all boundaries (both horizontal and vertical) in the occupancy map.
+*/
 vector<vector<pair<int, int>>> diffusionDecomp::findAllBoundaries() {
 	// Combine horizontal and vertical boundaries as below:
 	// Horizontal			
@@ -248,6 +293,23 @@ vector<vector<pair<int, int>>> diffusionDecomp::findAllBoundaries() {
 	return boundaries;
 }
 
+/*
+name:		findPerimeter
+
+inputs:		sIdx: starting index (row, col) on the boundary to trace the perimeter from
+
+outputs:	Vector of pairs of indices (row, col) representing the traced perimeter.
+
+descr:		Traces the perimeter of an area starting from the given index on the boundary.
+			The function follows the boundary in a clockwise manner until it returns
+			to the starting index, collecting all indices along the way.
+			Returns a vector of pairs of indices representing the traced perimeter.
+			If the starting index is out of bounds or not on a boundary, an error
+			message is printed and an empty vector is returned.
+			To prevent infinite loops, a loop counter is implemented that breaks
+			the loop after 100 iterations if the perimeter has not been closed.
+			This function assumes that boundaries are well-formed and connected.
+*/
 vector<pair<int, int>> diffusionDecomp::findPerimeter(pair<int, int> sIdx) {
 	vector<pair<int, int>> perimeter;
 	vector<vector<pair<int, int>>> hBoundaries = findHBoundaries();
@@ -419,6 +481,22 @@ vector<pair<int, int>> diffusionDecomp::findPerimeter(pair<int, int> sIdx) {
 	return perimeter;
 }
 
+/*
+name:		findAllPerimeters
+
+inputs:		none
+
+outputs:	Vector of all boundaries (horizontal and vertical), each represented
+			as a vector of pairs of indices (row, col) marking the start and
+			end of each boundary segment.
+			Each vector oof pairs corresponds to one boundary enclosing an area.
+
+descr:		Finds all boundaries (both horizontal and vertical) in the occupancy map
+			by combining the results of findHBoundaries and findVBoundaries.
+			Returns a vector of vectors, where each inner vector contains
+			pairs of indices marking the start and end of each boundary segment, and
+			each vector represents the boundary enclosing an area.
+*/
 vector<vector<pair<int, int>>> diffusionDecomp::findAllPerimeters() {
 	vector<vector<pair<int, int>>> perimeters, visitedPerimeters; // To track visited perimeters
 	vector<vector<pair<int, int>>> boundaries = findAllBoundaries();
