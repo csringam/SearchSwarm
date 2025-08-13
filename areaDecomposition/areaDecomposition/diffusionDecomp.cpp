@@ -14,6 +14,18 @@ void diffusionDecomp::setMap(const occMap& map) {
 	*m_map = map;
 }
 
+/*
+name:		insertBoundary
+
+inputs:		idx: index at which to insert boundary
+			dir: direction (HORIZONTAL or VERTICAL) to insert boundary
+
+outputs:	none
+
+descr:		Inserts a boundary (row or column of 2's) into the occupancy map
+			at the specified index and direction.
+			Modifies the occupancy map in place.
+*/
 void diffusionDecomp::insertBoundary(int idx, direction dir) {
 	switch (dir) {
 		case HORIZONTAL:
@@ -37,6 +49,16 @@ void diffusionDecomp::insertBoundary(int idx, direction dir) {
 	return;
 }
 
+/*
+name:		padMap
+
+inputs:		none
+
+outputs:	none
+
+descr:		Pads the occupancy map with a border of 2's (BORDER) on all sides.
+			Modifies the occupancy map in place.
+*/
 void diffusionDecomp::padMap() {
 	m_map->insertRow(0, vector<int>(m_map->getWidth(), 2)); // Top padding
 	m_map->insertRow(static_cast<int>(m_map->getHeight()), vector<int>(m_map->getWidth(), 2)); //Bottom padding
@@ -45,6 +67,20 @@ void diffusionDecomp::padMap() {
 	return;
 }
 
+/*
+name:		findTLBoundCorner
+
+intputs:	none
+
+outputs:	Vector of corner indices (row, col) where top-left corners of
+			each area are located
+
+descr:		Finds the top-left corners of each area in the occupancy map.
+			A top-left corner is defined as a cell with value 2 (BORDER)
+			that has a cell with value 2 directly below it and a cell
+			with value 2 directly to its right.
+			Returns a vector of pairs of indices representing the corners.
+*/
 vector<vector<int>> diffusionDecomp::findTLBoundCorner() {
 	vector<vector<int>> corners;
 	size_t width = m_map->getWidth();
@@ -604,6 +640,19 @@ int diffusionDecomp::getGreatestDiffIdx(adjList* adj) {
 	return maxIdx;
 }
 
+/*
+name:		greatestDiffAtIdx
+
+inputs:		adj: adjacency list for area to decompose
+			idx: index of node of interest in adjacency list
+
+outputs:	pair containing the index of the node with the greatest
+			difference in occupied area proportion in the first position
+			and the value of that difference in the second position
+
+descr:		Finds the neighbor of the node at idx with the greatest
+			difference in occupied area proportion.
+*/
 pair<int, float> diffusionDecomp::greatestDiffAtIdx(adjList* adj, int idx) {
 	pair<int, float> out{ -1, -1.0f };
 	if (adj->getProportions().empty()) {
@@ -624,6 +673,20 @@ pair<int, float> diffusionDecomp::greatestDiffAtIdx(adjList* adj, int idx) {
 	return out;
 }
 
+/*
+name:		getGreatestUnrelatedDiffIdxs
+
+inputs:		adj: adjacency list for area to decompose
+
+outputs:	vector of indices of nodes with the greatest differences
+			in occupied area proportion that are not adjacent to another
+			node in the output vector
+
+descr:		Finds the nodes with the greatest differences in occupied area
+			proportion that are not adjacent to another node in the output vector.
+			Stops when only two nodes remain in the adjacency list, as one node
+			will always be adjacent to at least one other node.
+*/
 vector<int> diffusionDecomp::getGreatestUnrelatedDiffIdxs(adjList* adj) {
 	if (adj->getProportions().empty()) {
 		cerr << "Proportions not assigned to adjacency list." << endl;
@@ -647,6 +710,16 @@ vector<int> diffusionDecomp::getGreatestUnrelatedDiffIdxs(adjList* adj) {
 	return maxIdxs;
 }
 
+/*
+name:		horizantalBoundaryMap
+
+inputs:		none
+
+outputs:	none
+
+descr:		Generates a map of the number of horizontal boundaries encountered
+			at each index when traversing top to bottom.
+*/
 void diffusionDecomp::horizantalBoundaryMap() {
 	size_t width{ m_map->getWidth() }, height{ m_map->getHeight() };
 	int numBorders{ 0 };
@@ -674,6 +747,16 @@ void diffusionDecomp::horizantalBoundaryMap() {
 	return;
 }
 
+/*
+name:		verticalBoundaryMap
+
+inputs:		none
+
+outputs:	none
+
+descr:		Generates a map of the number of vertical boundaries encountered
+			at each index when traversing left to right.
+*/
 void diffusionDecomp::verticalBoundaryMap() {
 	size_t width{ m_map->getWidth() }, height{ m_map->getHeight() };
 	int numBorders{ 0 };
