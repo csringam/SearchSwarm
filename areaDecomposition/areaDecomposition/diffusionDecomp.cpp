@@ -525,11 +525,38 @@ vector<vector<pair<int, int>>> diffusionDecomp::findAllPerimeters() {
 	return perimeters;
 }
 
+/*
+name:		findIntCorners
+
+inputs:		none
+
+outputs:	Vector of vectors of pairs of indices (row, col) representing
+			internal corners for each area.
+
+descr:		Finds internal corners, right inside the boundary, for each area in the
+			occupancy map.
+*/
 vector<vector<pair<int, int>>> diffusionDecomp::findIntCorners() {
 	vector<pair<int, int>> corners;
 	return vector<vector<pair<int, int>>>{corners};
 }
 
+/*
+name:		getSubAreas
+
+inputs:		none
+
+outputs:	Vector of occMap objects, each representing a sub-area of the original
+			occupancy map.
+
+descr:		Extracts sub-areas from the occupancy map based on the perimeters
+			found by findAllPerimeters. Each sub-area is defined by the bounding
+			box of its perimeter.
+			Returns a vector of occMap objects, each representing a sub-area.
+			If no perimeters are found, an empty vector is returned.
+			Assumes that the occupancy map has been properly decomposed into
+			sub-areas with clear boundaries.
+*/
 vector<occMap> diffusionDecomp::getSubAreas() {
 	vector<vector<pair<int, int>>> perimeters = findAllPerimeters();
 	vector<vector<int>> mapInts = m_map->getMap();
@@ -552,6 +579,16 @@ vector<occMap> diffusionDecomp::getSubAreas() {
 	return occVec;
 }
 
+/*
+name:		getSubAreaOcc
+
+inputs:		none
+
+outputs:	Vector of integers representing the EMPTY occupancy counts for each
+			sub-area of the occupancy map.
+
+descr:		Calculates the EMPTY occupancy counts for each sub-area extracted
+*/
 vector<int> diffusionDecomp::getSubAreaOcc() {
 	vector<occMap> subAreas = getSubAreas();
 	vector<int> occCounts;
@@ -562,12 +599,42 @@ vector<int> diffusionDecomp::getSubAreaOcc() {
 	return occCounts;
 }
 
+/*
+name:		isCoincident
+
+inputs:		ls: starting index (row, col) of line segment
+			lf: ending index (row, col) of line segment
+			p: point (row, col) to check for coincidence with line segment
+
+outputs:	Boolean indicating whether point p lies on the line segment
+
+descr:		Checks if a point p lies on the line segment defined by
+			starting point ls and ending point lf.
+			Returns true if p is coincident with the line segment,
+			false otherwise.
+			Assumes that ls and lf define a valid line segment (either
+			horizontal or vertical).
+*/
 bool diffusionDecomp::isCoincident(pair<int, int> ls, pair<int, int> lf, pair<int, int> p) {
 	if (p.first <= max(ls.first, lf.first) && p.first >= min(ls.first, lf.first)
 		&& p.second <= max(ls.second, lf.second) && p.second >= min(ls.second, lf.second)) return true;
 	return false;
 }
 
+/*
+name:		isAdjacent
+
+inputs:		target: vector of pairs of indices (row, col) representing the perimeter of the target area
+			origin: vector of pairs of indices (row, col) representing the perimeter of the origin area
+
+outputs:	Boolean indicating whether the target and origin areas are adjacent
+
+descr:		Checks if two areas, defined by their perimeters, are adjacent.
+			Two areas are considered adjacent if they share a boundary segment
+			or if they share at least two corner points.
+			Returns true if the areas are adjacent, false otherwise.
+			Assumes that the perimeters are well-formed and closed.
+*/
 bool diffusionDecomp::isAdjacent(vector<pair<int, int>> target, vector<pair<int, int>> origin) {
 	int onBoundary = 0;
 	for (int i = 0; i < target.size(); ++i) {
