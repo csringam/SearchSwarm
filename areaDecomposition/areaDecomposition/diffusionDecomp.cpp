@@ -650,6 +650,21 @@ bool diffusionDecomp::isAdjacent(vector<pair<int, int>> target, vector<pair<int,
 	return false;
 }
 
+/*
+name:		boundaryType
+
+inputs:		targetArea: index of the target area
+			srcArea: index of the source area
+
+outputs:	Enum value indicating the type of boundary (HORIZONTAL or VERTICAL)
+
+descr:		Determines the type of boundary (HORIZONTAL or VERTICAL) shared
+			between two adjacent areas in the occupancy map.
+			Returns HORIZONTAL if the shared boundary is horizontal,
+			VERTICAL if it is vertical.
+			If the areas are not adjacent or indices are out of bounds,
+			an error message is printed and HORIZONTAL is returned by default.
+*/
 direction diffusionDecomp::boundaryType(int targetArea, int srcArea) {
 	vector<vector<pair<int, int>>> perimeters = findAllPerimeters();
 	if (targetArea < 0 || targetArea >= perimeters.size() || srcArea < 0 || srcArea >= perimeters.size()) {
@@ -672,6 +687,17 @@ direction diffusionDecomp::boundaryType(int targetArea, int srcArea) {
 	}
 }
 
+/*
+name:		sharedBoundary
+
+iputs:		targetArea: index of the target area
+			srcArea: index of the source area
+
+outputs:	Vector of vectors, each containing pairs of indices (row, col)
+			defining the shared boundary segments between the target and source areas.
+
+descr:		Finds the shared boundary segments between two adjacent areas
+*/
 vector<vector<int>> diffusionDecomp::sharedBoundary(int targetArea, int srcArea) {
 	vector<vector<pair<int, int>>> perimeters = findAllPerimeters();
 	vector<vector<int>> sharedBound;
