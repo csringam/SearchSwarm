@@ -1098,6 +1098,16 @@ bool diffusionDecomp::cornerIsRight(pair<int, int> target, pair<int, int> src) {
 	return false;
 }
 
+/*
+name:		getIntCorners
+
+inputs:		perimeter: vector of pairs of indices (row, col) representing the perimeter of an area
+
+outputs:	Vector of pairs of indices (row, col) representing internal corners
+			for the given perimeter.
+
+descr:		Finds internal corners, right inside the boundary, for the given perimeter.
+*/
 vector<pair<int, int>> diffusionDecomp::getIntCorners(vector<pair<int, int>> perimeter) {
 	vector<pair<int, int>> out;
 	int n{ static_cast<int>(perimeter.size()) };
