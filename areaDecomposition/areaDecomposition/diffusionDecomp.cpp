@@ -730,6 +730,22 @@ vector<vector<int>> diffusionDecomp::sharedBoundary(int targetArea, int srcArea)
 	return sharedBound;
 }
 
+/*
+name:		boundaryOrientation
+
+inputs:		targetArea: index of the target area
+			srcArea: index of the source area
+
+outputs:	Enum value indicating the orientation of the target area
+			relative to the source area (NORTH, SOUTH, EAST, or WEST)
+
+descr:		Determines the orientation of the target area relative to the source area
+			based on their shared boundary.
+			Returns NORTH if the target is above the source,
+			SOUTH if below, EAST if to the right, and WEST if to the left.
+			If the areas are not adjacent or indices are out of bounds,
+			an error message is printed and NORTH is returned by default.
+*/
 cardinal diffusionDecomp::boundaryOrientation(int targetArea, int srcArea) {
 	vector<vector<pair<int, int>>> perimeters = findAllPerimeters();
 	vector<pair<int, int>> target{ perimeters[targetArea] }, src{ perimeters[srcArea] };
