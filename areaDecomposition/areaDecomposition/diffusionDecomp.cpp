@@ -779,6 +779,18 @@ cardinal diffusionDecomp::boundaryOrientation(int targetArea, int srcArea) {
 	return NORTH;
 }
 
+/*
+name:		getAdjacencyList
+
+inputs:		none
+
+outputs:	adjList object representing the adjacency relationships between sub-areas
+
+descr:		Constructs an adjacency list representing the relationships
+			between sub-areas in the occupancy map.
+			Two areas are considered adjacent if they share a boundary segment.
+			Returns an adjList object containing the adjacency information.
+*/
 adjList diffusionDecomp::getAdjacencyList() {
 	vector<vector<pair<int, int>>> perimeters = findAllPerimeters();
 	adjList adjacency(perimeters.size());
@@ -792,6 +804,16 @@ adjList diffusionDecomp::getAdjacencyList() {
 	return adjacency;
 }
 
+/*
+name:		getAreaProportions
+
+inputs:		none
+
+outputs:	Vector of floats representing the proportion of EMPTY occupancy
+			for each sub-area relative to the total EMPTY occupancy across all sub-areas.
+
+descr:		Calculates the proportion of EMPTY occupancy for each sub-area
+*/
 vector<float> diffusionDecomp::getAreaProportions() {
 	vector<int> occCounts = getSubAreaOcc();
 	int totalOcc = accumulate(occCounts.begin(), occCounts.end(), 0);
@@ -803,11 +825,40 @@ vector<float> diffusionDecomp::getAreaProportions() {
 	return proportions;
 }
 
+/*
+name:		assignProportions
+
+inputs:		adj: pointer to an adjList object representing the adjacency relationships
+			between sub-areas
+
+outputs:	none
+
+descr:		Assigns the area proportions calculated by getAreaProportions
+			to the provided adjacency list.
+			The proportions are stored in the adjList object for later use
+			in diffusion calculations.
+			If the adjacency list is not properly initialized, an error
+			message is printed.
+*/
 void diffusionDecomp::assignProportions(adjList* adj) {
 	unique_ptr<vector<float>> proportions = make_unique<vector<float>>(getAreaProportions());
 	adj->setProportions(*proportions);
 }
 
+/*
+name:		getGreatestDiffIdx
+
+inputs:		adj: adjacency list for area to decompose
+
+outputs:	Index of the node with the greatest difference in occupied area
+			proportion compared to its neighbors
+
+descr:		Finds the node in the adjacency list that has the greatest
+			difference in occupied area proportion compared to its neighbors.
+			Returns the index of that node.
+			If proportions have not been assigned to the adjacency list,
+			an error message is printed and -1 is returned.
+*/
 int diffusionDecomp::getGreatestDiffIdx(adjList* adj) {
 	if (adj->getProportions().empty()) {
 		cerr << "Proportions not assigned to adjacency list." << endl;
