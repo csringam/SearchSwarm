@@ -1034,21 +1034,65 @@ void diffusionDecomp::verticalBoundaryMap() {
 	return;
 }
 
+/*
+name:		cornerIsBelow
+
+inputs:		target: corner to check (row, col)
+			src: reference corner (row, col)
+
+outputs:	Boolean indicating whether target is directly below src
+
+descr:		Checks if the target corner is directly below the source corner.
+			Returns true if target is below src, false otherwise.
+*/
 bool diffusionDecomp::cornerIsBelow(pair<int, int> target, pair<int, int> src) {
 	if (target.first > src.first && target.second == src.second) return true;
 	return false;
 }
 
+/*
+name:		cornerIsAbove
+
+inputs:		target: corner to check (row, col)
+			src: reference corner (row, col)
+
+outputs:	Boolean indicating whether target is directly above src
+
+descr:		Checks if the target corner is directly above the source corner.
+			Returns true if target is above src, false otherwise.
+*/
 bool diffusionDecomp::cornerIsAbove(pair<int, int> target, pair<int, int> src) {
 	if (target.first < src.first && target.second == src.second) return true;
 	return false;
 }
 
+/*
+name:		cornerIsLeft
+
+inputs:		target: corner to check (row, col)
+			src: reference corner (row, col)
+
+outputs:	Boolean indicating whether target is directly to left of src
+
+descr:		Checks if the target corner is directly to left of the source corner.
+			Returns true if target is left src, false otherwise.
+*/
 bool diffusionDecomp::cornerIsLeft(pair<int, int> target, pair<int, int> src) {
 	if (target.first == src.first && target.second > src.second) return true;
 	return false;
 }
 
+/*
+name:		cornerIsRight
+
+inputs:		target: corner to check (row, col)
+			src: reference corner (row, col)
+
+outputs:	Boolean indicating whether target is directly to right of src
+
+descr:		Checks if the target corner is directly to right of the source corner.
+			Returns true if target is right src, false otherwise.
+*/
 bool diffusionDecomp::cornerIsRight(pair<int, int> target, pair<int, int> src) {
 	if (target.first == src.first && target.second < src.second) return true;
 	return false;
