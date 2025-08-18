@@ -266,6 +266,18 @@ void occMap::swapIndex(int tarR, int tarC, int srcR, int srcC) {
 	return;
 }
 
+/*
+name:		removeBorders
+
+inputs:		none
+
+outputs:	none
+
+descr:		Removes all BORDER (2) values from the occupancy map.
+			Modifies the occupancy map in place.
+			After removing borders, any empty rows are also removed
+			from the map.
+*/
 void occMap::removeBorders() {
 	for (int i = 0; i < m_map.size(); ++i) {
 		for (int idx = 0; idx < m_map[i].size(); ++idx) {
@@ -281,6 +293,16 @@ void occMap::removeBorders() {
 	}
 }
 
+/*
+name:		getOccupancy
+
+inputs:		none
+
+outputs:	Integer count of EMPTY (0) cells in the occupancy map
+
+descr:		Counts and returns the number of EMPTY (0) cells
+			in the occupancy map.
+*/
 int occMap::getOccupancy() {
 	int occupancy = 0;
 	for (const auto& row : m_map) {
