@@ -216,6 +216,20 @@ void occMap::removeColumn(int col) {
 	return;
 }
 
+/*
+name:		setIndex
+
+inputs:		row: row index of the cell to set
+			col: column index of the cell to set
+			val: occupancy value to set (EMPTY, OBSTACLE, BORDER, OUT_OF_BOUNDS)
+
+outputs:	none
+
+descr:		Sets the value of the cell at the specified row and column
+			indices to the provided occupancy value. If the indices
+			are out of bounds, an error message is printed and no changes
+			are made.
+*/
 void occMap::setIndex(int row, int col, occupancy val) {
 	if (row < 0 || row >= m_height || col < 0 || col >= m_width) {
 		cerr << "Error: Index out of bounds." << endl;
@@ -225,6 +239,21 @@ void occMap::setIndex(int row, int col, occupancy val) {
 	return;
 }
 
+/*
+name:		swapIndex
+
+inputs:		tarR: target row index
+			tarC: target column index
+			srcR: source row index
+			srcC: source column index
+
+outputs:	none
+
+descr:		Swaps the values of the cells at the specified target
+			and source row and column indices. If any of the indices
+			are out of bounds, an error message is printed and no changes
+			are made.
+*/
 void occMap::swapIndex(int tarR, int tarC, int srcR, int srcC) {
 	if (tarR < 0 || tarR >= m_height || tarC < 0 || tarC >= m_width ||
 		srcR < 0 || srcR >= m_height || srcC < 0 || srcC >= m_width) {
