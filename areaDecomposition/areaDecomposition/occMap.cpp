@@ -27,6 +27,16 @@ vector<vector<int>> occMap::getMap() {
 	return m_map;
 }
 
+/*
+name:		setWidth
+
+inputs:		width: new width of the map
+
+outputs:	none
+
+descr:		Sets the width of the occupancy map and resizes each row
+			to the new width, filling new cells with 0 (EMPTY).
+*/
 void occMap::setWidth(size_t width) {
 	m_width = width;
 	for (auto& i : m_map) {
@@ -34,11 +44,31 @@ void occMap::setWidth(size_t width) {
 	}
 }
 
+/*
+name:		setHeight
+
+inputs:		height: new height of the map
+
+outputs:	none
+
+descr:		Sets the height of the occupancy map and resizes the map
+			to the new height, filling new rows with 0 (EMPTY).
+*/
 void occMap::setHeight(size_t height) {
 	m_height = height;
 	m_map.resize(height, vector<int>(m_width, 0)); //Resize height and fill new rows with 0s
 }
 
+/*
+name:		setMap
+
+inputs:		map: new 2D vector to set as the occupancy map
+
+outputs:	none
+
+descr:		Sets the occupancy map to the provided 2D vector and
+			updates the width and height accordingly.
+*/
 void occMap::setMap(const vector<vector<int>>& map) {
 	m_map = map;
 	if (!m_map.empty()) {
