@@ -90,6 +90,21 @@ void occMap::printMap() {
 	}
 }
 
+/*
+name:		getSection
+
+inputs:		t_row: top row index of the section (inclusive)
+			b_row: bottom row index of the section (inclusive)
+			l_col: left column index of the section (inclusive)
+			r_col: right column index of the section (inclusive)
+
+outputs:	occMap object representing the specified section of the map
+
+descr:		Extracts a section of the occupancy map defined by the
+			specified row and column indices and returns it as a new
+			occMap object. If the indices are out of bounds, an error
+			message is printed and an empty occMap is returned.
+*/
 occMap occMap::getSection(int t_row, int b_row, int l_col, int r_col) {
 	if (b_row >= m_height || t_row < 0 || l_col < 0 || r_col >= m_width) {
 		cout << "Error: row or column index out of bounds." << endl;
