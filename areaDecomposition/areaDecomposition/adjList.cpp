@@ -1,5 +1,16 @@
 #include "adjList.h"
 
+/*
+name:		addEdge
+
+inputs:		f: index of the first vertex
+			s: index of the second vertex
+
+outputs:	none
+
+descr:		Adds an undirected edge between vertices f and s in the adjacency list.
+			If either vertex index is out of bounds, an error message is printed.
+*/
 void adjList::addEdge(int f, int s) {
 	if (f >= m_adjList.size() || s >= m_adjList.size()) {
 		cerr << "Error: Vertex index out of bounds." << endl;
@@ -35,6 +46,16 @@ void adjList::printAdjListWithProportions() const {
 	}
 }
 
+/*
+name:		getNeighbors
+
+inputs:		node: index of the vertex whose neighbors are to be retrieved
+
+outputs:	Vector of indices representing the neighbors of the specified vertex
+
+descr:		Retrieves the neighbors of the specified vertex in the adjacency list.
+			If the vertex index is out of bounds, an error message is printed.
+*/
 vector<int> adjList::getNeighbors(int node) const {
 	if (node < 0 || node >= m_adjList.size()) {
 		cerr << "Error: Node index out of bounds." << endl;
