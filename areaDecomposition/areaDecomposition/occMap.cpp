@@ -124,6 +124,19 @@ occMap occMap::getSection(int t_row, int b_row, int l_col, int r_col) {
 	return sectionMap;
 }
 
+/*
+name:		insertRow
+
+inputs:		row: index at which to insert the new row
+			newRow: vector representing the new row to insert
+
+outputs:	none
+
+descr:		Inserts a new row into the occupancy map at the specified
+			index. The new row must match the current width of the map.
+			If the index is out of bounds or the row size does not match,
+			an error message is printed and no changes are made.
+*/
 void occMap::insertRow(int row, const vector<int>& newRow) {
 	if (row < 0 || row > m_height) {
 		cerr << "Error: Row index out of bounds." << endl;
@@ -138,12 +151,36 @@ void occMap::insertRow(int row, const vector<int>& newRow) {
 	return;
 }
 
+/*
+name:		removeRow
+
+inputs:		row: index of the row to remove
+
+outputs:	none
+
+descr:		Removes the row at the specified index from the occupancy map.
+			If the index is out of bounds, an error message is printed
+			and no changes are made.
+*/
 void occMap::removeRow(int row) {
 	m_map.erase(m_map.begin() + row);
 	m_height--;
 	return;
 }
 
+/*
+name:		insertColumn
+
+inputs:		col: index at which to insert the new column
+			newCol: vector representing the new column to insert
+
+outputs:	none
+
+descr:		Inserts a new column into the occupancy map at the specified
+			index. The new column must match the current height of the map.
+			If the index is out of bounds or the column size does not match,
+			an error message is printed and no changes are made.
+*/
 void occMap::insertColumn(int col, const vector<int>& newCol) {
 	if (col < 0 || col > m_width) {
 		cerr << "Error: Column index out of bounds." << endl;
@@ -160,6 +197,17 @@ void occMap::insertColumn(int col, const vector<int>& newCol) {
 	return;
 }
 
+/*
+name:		removeColumn
+
+inputs:		col: index of the column to remove
+
+outputs:	none
+
+descr:		Removes the column at the specified index from the occupancy map.
+			If the index is out of bounds, an error message is printed
+			and no changes are made.
+*/
 void occMap::removeColumn(int col) {
 	for (int i = 0; i < m_height; i++) {
 		m_map[i].erase(m_map[i].begin() + col);
